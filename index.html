@@ -5,33 +5,197 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Queentana Real</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    /* Reset */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #fffaf2;
       color: #333;
+      line-height: 1.6;
     }
+
     header {
       text-align: center;
-      padding: 30px 10px;
+      padding: 20px;
       background: #fff;
       border-bottom: 2px solid #e2c97b;
     }
+
     header img {
       max-width: 250px;
       height: auto;
     }
+
+    nav {
+      background: #b8860b;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(rgba(255, 250, 242, 0.9), rgba(255, 250, 242, 0.9)),
+                  url('https://www.transparenttextures.com/patterns/white-wall.png');
+      background-size: cover;
+    }
+
+    .hero h1 {
+      font-size: 2.5em;
+      color: #b8860b;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .productos {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .productos h2 {
+      color: #b8860b;
+      margin-bottom: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e2c97b;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .contacto {
+      background: #f9f5e6;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .contacto h2 {
+      color: #b8860b;
+      margin-bottom: 20px;
+    }
+
+    .redes a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 1.2em;
+      color: #333;
+      transition: color 0.3s;
+    }
+
+    .redes a:hover {
+      color: #b8860b;
+    }
+
+    footer {
+      background: #b8860b;
+      color: #fff;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
+  <!-- Encabezado con logo -->
   <header>
     <img src="img/logo.png" alt="Queentana Real Logo">
   </header>
 
-  <main>
-    <h1 style="text-align:center; color:#b8860b;">Bienvenidos a Queentana Real</h1>
-    <p style="text-align:center;">Repostería y más, con el toque elegante que mereces ✨</p>
-  </main>
+  <!-- Menú de navegación -->
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#productos">Productos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <!-- Sección Hero -->
+  <section id="inicio" class="hero">
+    <h1>Bienvenidos a Queentana Real</h1>
+    <p>Repostería artesanal y más, con el toque elegante que mereces ✨</p>
+  </section>
+
+  <!-- Sección de Productos -->
+  <section id="productos" class="productos">
+    <h2>Nuestros Productos</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="https://placehold.co/300x200" alt="Producto 1">
+        <h3>Pastel de Chocolate</h3>
+        <p>Un clásico irresistible con el sabor más puro del cacao.</p>
+      </div>
+      <div class="card">
+        <img src="https://placehold.co/300x200" alt="Producto 2">
+        <h3>Galletas Decoradas</h3>
+        <p>Detalles únicos para cada ocasión especial.</p>
+      </div>
+      <div class="card">
+        <img src="https://placehold.co/300x200" alt="Producto 3">
+        <h3>Postres de Temporada</h3>
+        <p>Dulces creativos con temática especial según la época del año.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Contacto -->
+  <section id="contacto" class="contacto">
+    <h2>Contáctanos</h2>
+    <p>Encuéntranos en nuestras redes sociales:</p>
+    <div class="redes">
+      <a href="https://www.facebook.com" target="_blank">Facebook</a> |
+      <a href="https://www.instagram.com" target="_blank">Instagram</a> |
+      <a href="https://www.tiktok.com" target="_blank">TikTok</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Queentana Real - Todos los derechos reservados</p>
+  </footer>
 </body>
 </html>
