@@ -4,76 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Queentana Real</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff8f0;
+      color: #333;
+      text-align: center;
+    }
+    header {
+      background-color: #e4c2ff;
+      padding: 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #5a189a;
+    }
+    section {
+      padding: 30px 20px;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .producto {
+      background-color: #fefefe;
+      border: 2px solid #e4c2ff;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .producto h3 {
+      color: #7b2cbf;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #e4c2ff;
+      padding: 15px;
+      margin-top: 30px;
+    }
+    footer a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #5a189a;
+      font-weight: bold;
+    }
+  </style>
 </head>
-<body class="bg-[#F9F6F0] text-[#1F1F1F]">
-  <!-- Navbar -->
-  <header class="flex justify-between items-center p-4 bg-[#F9F6F0] shadow-md">
-    <h1 class="text-2xl font-bold text-[#C9A44C]">Queentana Real</h1>
-    <nav>
-      <ul class="flex gap-6 font-medium">
-        <li><a href="#inicio" class="hover:text-[#C9A44C]">Inicio</a></li>
-        <li><a href="#productos" class="hover:text-[#C9A44C]">Productos</a></li>
-        <li><a href="#nosotros" class="hover:text-[#C9A44C]">Nosotros</a></li>
-        <li><a href="#contacto" class="hover:text-[#C9A44C]">Contacto</a></li>
-      </ul>
-    </nav>
+<body>
+  <header>
+    <h1>Queentana Real</h1>
+    <p>Repostería con un toque de realeza</p>
   </header>
 
-  <!-- Hero -->
-  <section id="inicio" class="text-center py-16 bg-gradient-to-r from-[#F9F6F0] to-[#fff]">
-    <h2 class="text-4xl font-extrabold text-[#C9A44C]">Bienvenidos a Queentana Real</h2>
-    <p class="mt-4 text-lg">Repostería y más, con el toque real que mereces.</p>
-    <a href="#productos" class="mt-6 inline-block bg-[#C9A44C] text-white px-6 py-3 rounded-xl shadow hover:opacity-90 transition">Ver productos</a>
-  </section>
-
-  <!-- Productos -->
-  <section id="productos" class="py-16 px-8">
-    <h3 class="text-3xl font-bold text-center text-[#C9A44C] mb-10">Catálogo de Productos</h3>
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white rounded-2xl shadow p-4 text-center hover:scale-105 transition">
-        <img src="https://source.unsplash.com/400x300/?cake" alt="Pastel" class="rounded-xl mx-auto">
-        <h4 class="mt-4 text-xl font-semibold">Pasteles Personalizados</h4>
-        <p class="text-gray-600">Diseñados para tus ocasiones más especiales.</p>
-        <p class="mt-2 font-bold text-[#C9A44C]">$450 MXN</p>
+  <section>
+    <h2>🍰 Nuestros Productos</h2>
+    <div class="productos">
+      <div class="producto">
+        <h3>Carlotas</h3>
+        <p>$30 c/u</p>
+        <p>Con topping: $35</p>
       </div>
-      <div class="bg-white rounded-2xl shadow p-4 text-center hover:scale-105 transition">
-        <img src="https://source.unsplash.com/400x300/?cupcake" alt="Cupcakes" class="rounded-xl mx-auto">
-        <h4 class="mt-4 text-xl font-semibold">Cupcakes & Postres</h4>
-        <p class="text-gray-600">Pequeños bocados de felicidad.</p>
-        <p class="mt-2 font-bold text-[#C9A44C]">$180 MXN (6 pzas)</p>
+      <div class="producto">
+        <h3>Gelatinas</h3>
+        <p>$12 c/u</p>
       </div>
-      <div class="bg-white rounded-2xl shadow p-4 text-center hover:scale-105 transition">
-        <img src="https://source.unsplash.com/400x300/?cookies" alt="Galletas" class="rounded-xl mx-auto">
-        <h4 class="mt-4 text-xl font-semibold">Galletas Creativas</h4>
-        <p class="text-gray-600">Detalles dulces que enamoran.</p>
-        <p class="mt-2 font-bold text-[#C9A44C]">$120 MXN (10 pzas)</p>
+      <div class="producto">
+        <h3>Galletas</h3>
+        <p>Próximamente ✨</p>
+      </div>
+      <div class="producto">
+        <h3>Cupcakes</h3>
+        <p>Próximamente ✨</p>
       </div>
     </div>
   </section>
 
-  <!-- Nosotros -->
-  <section id="nosotros" class="bg-[#F9F6F0] py-16 px-8 text-center">
-    <h3 class="text-3xl font-bold text-[#C9A44C] mb-6">Sobre Nosotros</h3>
-    <p class="max-w-2xl mx-auto text-gray-700">En <strong>Queentana Real</strong> creemos que cada detalle cuenta. Nacimos como un pequeño emprendimiento de repostería, pero soñamos con crecer y ofrecerte mucho más. Cada producto está hecho con dedicación, pasión y un toque de realeza.</p>
-  </section>
-
-  <!-- Contacto -->
-  <section id="contacto" class="py-16 px-8">
-    <h3 class="text-3xl font-bold text-center text-[#C9A44C] mb-6">Contáctanos</h3>
-    <div class="flex justify-center gap-6 mt-6">
-      <a href="https://www.instagram.com" target="_blank" class="text-[#C9A44C] text-3xl hover:opacity-80"><i class="fab fa-instagram"></i></a>
-      <a href="https://www.facebook.com" target="_blank" class="text-[#C9A44C] text-3xl hover:opacity-80"><i class="fab fa-facebook"></i></a>
-      <a href="https://www.tiktok.com" target="_blank" class="text-[#C9A44C] text-3xl hover:opacity-80"><i class="fab fa-tiktok"></i></a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-[#C9A44C] text-center py-4 mt-10">
-    <p class="text-white">&copy; 2025 Queentana Real - Todos los derechos reservados</p>
+  <footer>
+    <p>Síguenos en redes sociales:</p>
+    <a href="https://instagram.com/TU-CUENTA" target="_blank">Instagram</a>
+    <a href="https://facebook.com/TU-CUENTA" target="_blank">Facebook</a>
+    <a href="https://tiktok.com/@TU-CUENTA" target="_blank">TikTok</a>
   </footer>
-
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/6dcf5b99d8.js" crossorigin="anonymous"></script>
 </body>
 </html>
