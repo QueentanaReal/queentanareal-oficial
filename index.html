@@ -9,29 +9,31 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #fffaf2;
-      color: #333;
+      background-color: #FAF7F2; /* Fondo suave del logo */
+      color: #2E2E2E; /* Negro elegante */
     }
     header {
       text-align: center;
-      padding: 20px;
-      background: #fff;
-      border-bottom: 2px solid #e2c97b;
+      padding: 30px 10px;
+      background: #FAF7F2;
+      border-bottom: 3px solid #C6A24A; /* Oro */
     }
     header img {
-      max-width: 220px;
+      max-width: 260px;
       height: auto;
     }
     h1 {
       text-align: center;
-      color: #b8860b;
-      font-size: 2.2rem;
+      color: #C6A24A; /* Oro */
+      font-size: 2.5rem;
       margin-top: 20px;
+      font-weight: bold;
     }
     p {
       text-align: center;
       font-size: 1.1rem;
-      color: #444;
+      color: #2E2E2E;
+      margin-bottom: 30px;
     }
     .productos {
       display: flex;
@@ -42,48 +44,55 @@
     }
     .card {
       background: #fff;
-      border: 2px solid #e2c97b;
+      border: 2px solid #C6A24A; /* Oro */
       border-radius: 15px;
       width: 220px;
-      padding: 15px;
+      padding: 20px;
       text-align: center;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease-in-out;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
     .card:hover {
-      transform: scale(1.05);
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
     .card h3 {
       margin: 10px 0;
-      color: #333;
+      color: #2E2E2E;
+      font-size: 1.2rem;
     }
     .precio {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
-      color: #b8860b;
+      color: #C6A24A; /* Oro */
     }
     footer {
       text-align: center;
       padding: 20px;
-      background: #fff;
-      border-top: 2px solid #e2c97b;
-      margin-top: 30px;
+      background: #FAF7F2;
+      border-top: 3px solid #C6A24A;
+      margin-top: 40px;
+    }
+    footer p {
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #2E2E2E;
     }
     footer a {
-      margin: 0 10px;
+      margin: 0 15px;
       text-decoration: none;
-      color: #333;
+      color: #2E2E2E;
       font-weight: bold;
       transition: color 0.3s ease-in-out;
     }
     footer a:hover {
-      color: #b8860b;
+      color: #C6A24A;
     }
   </style>
 </head>
 <body>
   <header>
-    <!-- Logo en la raíz del repo como "logo.png" -->
+    <!-- Logo (asegúrate que esté en la misma carpeta que index.html y se llame logo.png) -->
     <img src="logo.png" alt="Queentana Real Logo">
   </header>
 
@@ -94,15 +103,15 @@
     <section class="productos">
       <div class="card">
         <h3>Carlota</h3>
-        <p class="precio">$30 MXN</p>
+        <p class="precio">$30</p>
       </div>
       <div class="card">
         <h3>Carlota con topping</h3>
-        <p class="precio">$35 MXN</p>
+        <p class="precio">$35</p>
       </div>
       <div class="card">
         <h3>Gelatinas</h3>
-        <p class="precio">$12 MXN</p>
+        <p class="precio">$12</p>
       </div>
       <div class="card">
         <h3>Cupcakes y galletas</h3>
