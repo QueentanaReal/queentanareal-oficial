@@ -6,24 +6,31 @@
   <title>Queentana Real</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Georgia', serif;
       margin: 0;
       padding: 0;
-      background-color: #fff8f0;
+      background-color: #fff; /* Blanco limpio */
       color: #333;
       text-align: center;
     }
     header {
-      background-color: #e4c2ff;
+      background-color: #000; /* Fondo negro elegante */
       padding: 20px;
     }
     header h1 {
       margin: 0;
       font-size: 2.5rem;
-      color: #5a189a;
+      color: #d4af37; /* Dorado */
+    }
+    header p {
+      color: #fff; /* Texto blanco */
+      margin: 5px 0 0;
     }
     section {
       padding: 30px 20px;
+    }
+    h2 {
+      color: #d4af37; /* Dorado */
     }
     .productos {
       display: grid;
@@ -32,26 +39,40 @@
       margin-top: 20px;
     }
     .producto {
-      background-color: #fefefe;
-      border: 2px solid #e4c2ff;
-      border-radius: 15px;
+      background-color: #fff;
+      border: 2px solid #d4af37; /* Borde dorado */
+      border-radius: 12px;
       padding: 15px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease-in-out;
+    }
+    .producto:hover {
+      transform: scale(1.05);
     }
     .producto h3 {
-      color: #7b2cbf;
+      color: #000;
       margin-bottom: 10px;
     }
+    .producto p {
+      color: #444;
+    }
     footer {
-      background-color: #e4c2ff;
+      background-color: #000;
       padding: 15px;
       margin-top: 30px;
+    }
+    footer p {
+      color: #fff;
+      margin-bottom: 10px;
     }
     footer a {
       margin: 0 10px;
       text-decoration: none;
-      color: #5a189a;
+      color: #d4af37; /* Dorado */
       font-weight: bold;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
