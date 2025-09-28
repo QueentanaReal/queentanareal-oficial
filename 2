@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queentana Real</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #faf7f2;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #d4af37, #f8e6b5);
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px;
+      animation: fadeIn 2s ease;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin: 0;
+    }
+    header p {
+      margin: 10px 0 0;
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+    section {
+      padding: 50px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      color: #d4af37;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    h2::after {
+      content: "";
+      width: 80px;
+      height: 3px;
+      background: #d4af37;
+      display: block;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    .producto {
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .producto:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .producto img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+    .producto h3 {
+      font-family: 'Playfair Display', serif;
+      margin: 10px 0 5px;
+      font-size: 1.3rem;
+    }
+    .precio {
+      color: #d4af37;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    footer {
+      background: #333;
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    footer p {
+      margin: 0 0 10px;
+    }
+    footer a {
+      margin: 0 15px;
+      color: #f8e6b5;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>👑 Queentana Real</h1>
+    <p>Repostería creativa con un toque de elegancia</p>
+  </header>
+
+  <section>
+    <h2>📸 Catálogo y precios</h2>
+    <div class="catalogo">
+      <div class="producto">
+        <img src="https://via.placeholder.com/300x180?text=Carlota" alt="Carlota">
+        <h3>Carlota</h3>
+        <p class="precio">$30 pesos</p>
+      </div>
+      <div class="producto">
+        <img src="https://via.placeholder.com/300x180?text=Carlota+con+Topping" alt="Carlota con Topping">
+        <h3>Carlota con topping</h3>
+        <p class="precio">$35 pesos</p>
+      </div>
+      <div class="producto">
+        <img src="https://via.placeholder.com/300x180?text=Gelatina" alt="Gelatina">
+        <h3>Gelatinas</h3>
+        <p class="precio">$12 pesos</p>
+      </div>
+      <div class="producto">
+        <img src="https://via.placeholder.com/300x180?text=Proximamente" alt="Cupcakes y Galletas">
+        <h3>Cupcakes y Galletas</h3>
+        <p class="precio">Próximamente...</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Síguenos en redes:</p>
+    <a href="https://www.instagram.com/queentana_real?utm_source=ig_web_button_share_sheet&igsh=Mmh4d202MnFtb3Yy" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/share/v/16iE99qQbR/" target="_blank">Facebook</a>
+    <a href="https://www.tiktok.com/@queentanareal?_t=ZS-904BzuIjp3N&_r=1" target="_blank">TikTok</a>
+    <p style="margin-top:15px;">✨ Hecho con amor, creatividad y mucha pasión por Queentana Real ✨</p>
+  </footer>
+</body>
+</html>
