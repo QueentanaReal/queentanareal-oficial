@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queentana Real</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff8f0;
+      color: #333;
+      text-align: center;
+    }
+    header {
+      background-color: #e4c2ff;
+      padding: 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #5a189a;
+    }
+    section {
+      padding: 30px 20px;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .producto {
+      background-color: #fefefe;
+      border: 2px solid #e4c2ff;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .producto h3 {
+      color: #7b2cbf;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #e4c2ff;
+      padding: 15px;
+      margin-top: 30px;
+    }
+    footer a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #5a189a;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Queentana Real</h1>
+    <p>Repostería con un toque de realeza</p>
+  </header>
+
+  <section>
+    <h2>🍰 Nuestros Productos</h2>
+    <div class="productos">
+      <div class="producto">
+        <h3>Carlotas</h3>
+        <p>$30 c/u</p>
+        <p>Con topping: $35</p>
+      </div>
+      <div class="producto">
+        <h3>Gelatinas</h3>
+        <p>$12 c/u</p>
+      </div>
+      <div class="producto">
+        <h3>Galletas</h3>
+        <p>Próximamente ✨</p>
+      </div>
+      <div class="producto">
+        <h3>Cupcakes</h3>
+        <p>Próximamente ✨</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Síguenos en redes sociales:</p>
+    <a href="https://instagram.com/TU-CUENTA" target="_blank">Instagram</a>
+    <a href="https://facebook.com/TU-CUENTA" target="_blank">Facebook</a>
+    <a href="https://tiktok.com/@TU-CUENTA" target="_blank">TikTok</a>
+  </footer>
+</body>
+</html>
