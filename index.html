@@ -1,118 +1,230 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Queentana Real</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Queentana Real — Tienda</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      /* Ajusta estos colores según tu logo */
+      --brand-bg: #F9F6F0; /* fondo suave */
+      --brand-text: #1F1F1F; /* texto */
+      --accent: #C89B3A; /* dorado/real (ajusta) */
+      --muted: #BDB7AC;
+    }
+    body{background:var(--brand-bg); color:var(--brand-text)}
+    /* Modal backdrop */
+    .backdrop{background:rgba(0,0,0,0.35)}
+    /* Smooth small shadow for cards */
+    .card-shadow{box-shadow: 0 6px 18px rgba(31,31,31,0.08)}
+    /* placeholder for logo size */
+    .logo{height:56px; width:auto}
+  </style>
 </head>
-<body class="bg-[#F9F6F0] text-[#1F1F1F] relative">
-  <!-- Navbar -->
-  <nav class="flex justify-between items-center p-4 bg-[#1F1F1F] text-white">
-    <h1 class="text-xl font-bold">Queentana Real</h1>
-    <div>
-      <button id="cart-btn" class="relative">🛒
-        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1">0</span>
+<body class="min-h-screen font-sans">
+  <!-- Top bar: logo, menu, cart -->
+  <header class="p-4 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <!-- Logo: replace src with your uploaded logo file -->
+      <img src="assets/logo.png" alt="Queentana Real" class="logo" />
+      <div class="hidden md:block">
+        <h1 class="text-2xl font-semibold">Queentana <span class="text-sm">Real</span></h1>
+        <p class="text-xs text-gray-500">Repostería creativa • Sabor y elegancia</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <!-- Socials -->
+      <nav class="hidden sm:flex gap-2 items-center">
+        <!-- Replace links with your pages -->
+        <a href="https://instagram.com/tu_cuenta" target="_blank" class="text-sm">Instagram</a>
+        <a href="https://facebook.com/tu_cuenta" target="_blank" class="text-sm">Facebook</a>
+        <a href="https://tiktok.com/@tu_cuenta" target="_blank" class="text-sm">TikTok</a>
+      </nav>
+
+      <!-- Cart button -->
+      <button id="open-cart" class="relative p-2 rounded-md hover:bg-white card-shadow">
+        🛒 <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--accent)] text-white text-xs rounded-full px-2">0</span>
       </button>
-    </div>
-  </nav>
 
-  <!-- Bienvenida -->
-  <section class="text-center py-10">
-    <img src="logo.png" alt="Logo Queentana Real" class="mx-auto w-32 mb-4">
-    <h2 class="text-3xl font-bold mb-2">Bienvenidos a Queentana Real</h2>
-    <p class="text-lg">El lugar donde lo dulce se vuelve elegante ✨</p>
-  </section>
+      <!-- Mobile menu (hamburger) -->
+      <button id="open-menu" class="p-2 md:hidden rounded-md hover:bg-white card-shadow">☰</button>
+    </div>
+  </header>
 
-  <!-- Menú -->
-  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
-    <div class="border rounded-xl p-4 shadow bg-white">
-      <h3 class="text-xl font-semibold">Carlota</h3>
-      <p>$30</p>
-      <button onclick="addToCart('Carlota', 30)" class="mt-2 bg-[#1F1F1F] text-white px-4 py-2 rounded">Agregar</button>
-    </div>
-    <div class="border rounded-xl p-4 shadow bg-white">
-      <h3 class="text-xl font-semibold">Carlota con topping</h3>
-      <p>$35</p>
-      <button onclick="addToCart('Carlota con topping', 35)" class="mt-2 bg-[#1F1F1F] text-white px-4 py-2 rounded">Agregar</button>
-    </div>
-    <div class="border rounded-xl p-4 shadow bg-white">
-      <h3 class="text-xl font-semibold">Gelatina</h3>
-      <p>$12</p>
-      <button onclick="addToCart('Gelatina', 12)" class="mt-2 bg-[#1F1F1F] text-white px-4 py-2 rounded">Agregar</button>
+  <!-- Welcome / Hero -->
+  <section class="px-6 py-6 md:py-12 md:px-12">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-4xl font-bold">Bienvenid@ a Queentana Real</h2>
+        <p class="mt-3 text-gray-600">Postres caseros, con toque real. Explora nuestros productos, elige tus sabores y recibe tu pedido por WhatsApp.</p>
+        <div class="mt-6 flex gap-3">
+          <a href="#productos" class="px-4 py-2 rounded-lg border" >Ver productos</a>
+          <button id="open-cart-hero" class="px-4 py-2 rounded-lg bg-[var(--accent)] text-white">Ir al carrito</button>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <img src="assets/hero.png" alt="Imagen estética de postres" class="w-full max-w-md" />
+      </div>
     </div>
   </section>
 
-  <!-- Carrito -->
-  <div id="cart-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-    <div class="bg-white rounded-xl p-6 w-96 relative">
-      <button onclick="closeCart()" class="absolute top-2 right-2">❌</button>
-      <h2 class="text-2xl font-bold mb-4">Tu carrito</h2>
-      <ul id="cart-items" class="mb-4"></ul>
-      <p class="font-semibold">Total: $<span id="cart-total">0</span></p>
-      <button onclick="sendToWhatsApp()" class="mt-4 w-full bg-green-600 text-white px-4 py-2 rounded">Continuar a pagar</button>
+  <!-- Productos -->
+  <main id="productos" class="px-6 pb-16">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Product cards will be injected by JS -->
+      <template id="product-template">
+        <article class="bg-white p-4 rounded-2xl card-shadow">
+          <img class="w-full h-40 object-cover rounded-xl" src="" alt="" />
+          <h3 class="mt-3 font-medium text-lg"></h3>
+          <p class="text-sm text-gray-500 mt-1"></p>
+          <div class="mt-3 flex items-center justify-between">
+            <span class="font-semibold"></span>
+            <button class="add-btn px-3 py-1 rounded-lg border">Agregar</button>
+          </div>
+        </article>
+      </template>
+    </div>
+
+    <!-- Próximamente -->
+    <section class="max-w-5xl mx-auto mt-8">
+      <h4 class="font-semibold">Próximamente</h4>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm text-gray-500">
+        <span class="px-3 py-2 rounded-xl bg-white card-shadow">Cupcakes</span>
+        <span class="px-3 py-2 rounded-xl bg-white card-shadow">Galletas</span>
+        <span class="px-3 py-2 rounded-xl bg-white card-shadow">Empanadas</span>
+        <span class="px-3 py-2 rounded-xl bg-white card-shadow">Macaron</span>
+        <span class="px-3 py-2 rounded-xl bg-white card-shadow">Accesorios</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="fixed inset-0 hidden items-center justify-center z-40">
+    <div class="absolute inset-0 backdrop"></div>
+    <div class="relative bg-white rounded-2xl p-6 w-[95%] max-w-lg card-shadow">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-semibold">Tu carrito</h3>
+        <button id="close-cart">✕</button>
+      </div>
+      <div id="cart-items" class="mt-4 space-y-3 max-h-64 overflow-auto">
+        <p class="text-sm text-gray-500">Aún no agregas nada.</p>
+      </div>
+      <div class="mt-4 flex items-center justify-between">
+        <div>
+          <p class="text-xs text-gray-500">Total</p>
+          <p id="cart-total" class="text-xl font-semibold">$0 MXN</p>
+        </div>
+        <div class="flex gap-2">
+          <button id="close-cart-2" class="px-3 py-2 border rounded-lg">Seguir comprando</button>
+          <button id="checkout" class="px-3 py-2 rounded-lg bg-[var(--accent)] text-white">Continuar a pagar</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Redes sociales -->
-  <footer class="text-center py-6 bg-[#1F1F1F] text-white">
-    <p>Síguenos en:</p>
-    <div class="flex justify-center gap-4 mt-2">
-      <a href="https://facebook.com" target="_blank">📘</a>
-      <a href="https://instagram.com" target="_blank">📸</a>
-      <a href="https://tiktok.com" target="_blank">🎵</a>
+  <!-- Product detail / order modal -->
+  <div id="product-modal" class="fixed inset-0 hidden items-center justify-center z-50">
+    <div class="absolute inset-0 backdrop"></div>
+    <div class="relative bg-white rounded-2xl p-6 w-[95%] max-w-xl card-shadow">
+      <button id="close-product" class="absolute right-4 top-4">✕</button>
+      <div id="product-content"></div>
     </div>
-  </footer>
+  </div>
 
   <script>
+    /* ---------- Datos de productos ---------- */
+    const PRODUCTS = [
+      {
+        id: 'carlota',
+        name: 'Carlota(s)',
+        img: 'assets/carlota.jpg',
+        description: 'Carlota tradicional. Selecciona si quieres topping.',
+        price: 30,
+        type: 'options',
+        toppings: ['Fresa','Mango','Nuez','Mazapan','Chispas payaso','Chispas de chocolate','Cacahuate']
+      },
+      {
+        id: 'gelatina',
+        name: 'Gelatina',
+        img: 'assets/gelatina.jpg',
+        description: 'Elige tamaño y sabor.',
+        type: 'gelatina',
+        sizes: [
+          {name:'Chica', price:12},
+          {name:'Mediana', price:20}
+        ],
+        sabores: ['Fresa','Limon','Naranja','Mixto']
+      }
+    ];
+
+    /* Cart state */
     let cart = [];
 
-    function addToCart(product, price) {
-      cart.push({ product, price });
-      updateCart();
-    }
+    /* ---------- Helpers ---------- */
+    function formatMoney(n){ return '$'+n+' MXN'; }
 
-    function updateCart() {
-      document.getElementById('cart-count').innerText = cart.length;
-      const cartItems = document.getElementById('cart-items');
-      cartItems.innerHTML = '';
-      let total = 0;
-      cart.forEach((item, index) => {
-        total += item.price;
-        cartItems.innerHTML += `<li class='flex justify-between'>${item.product} - $${item.price} <button onclick='removeFromCart(${index})'>❌</button></li>`;
-      });
-      document.getElementById('cart-total').innerText = total;
-    }
+    /* ---------- Render productos ---------- */
+    const container = document.querySelector('#productos > div > div');
+    const template = document.getElementById('product-template');
+    const productGrid = document.querySelector('#productos .max-w-5xl > div');
 
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      updateCart();
-    }
-
-    document.getElementById('cart-btn').addEventListener('click', () => {
-      document.getElementById('cart-modal').classList.remove('hidden');
+    PRODUCTS.forEach(p =>{
+      const node = template.content.cloneNode(true);
+      const article = node.querySelector('article');
+      article.querySelector('img').src = p.img;
+      article.querySelector('img').alt = p.name;
+      article.querySelector('h3').textContent = p.name;
+      article.querySelector('p').textContent = p.description;
+      article.querySelector('span').textContent = p.price ? formatMoney(p.price) : 'Precio variable';
+      const btn = article.querySelector('.add-btn');
+      btn.addEventListener('click', ()=> openProductModal(p.id));
+      productGrid.appendChild(node);
     });
 
-    function closeCart() {
-      document.getElementById('cart-modal').classList.add('hidden');
-    }
+    /* ---------- Cart UI ---------- */
+    const cartModal = document.getElementById('cart-modal');
+    const cartCount = document.getElementById('cart-count');
+    const cartItemsEl = document.getElementById('cart-items');
+    const cartTotalEl = document.getElementById('cart-total');
 
-    function sendToWhatsApp() {
-      if (cart.length === 0) {
-        alert('Tu carrito está vacío');
-        return;
-      }
-      let message = 'Hola! Quiero hacer un pedido:%0A';
-      let total = 0;
-      cart.forEach(item => {
-        message += `- ${item.product}: $${item.price}%0A`;
-        total += item.price;
+    function updateCartUI(){
+      cartCount.textContent = cart.reduce((s,i)=> s + i.qty,0);
+      cartItemsEl.innerHTML = '';
+      if(cart.length === 0){ cartItemsEl.innerHTML = '<p class="text-sm text-gray-500">Aún no agregas nada.</p>' }
+      cart.forEach((item, idx)=>{
+        const div = document.createElement('div');
+        div.className = 'border rounded-lg p-3 flex items-start gap-3';
+        div.innerHTML = `
+          <div class="flex-1">
+            <div class="flex justify-between items-center">
+              <strong>${item.name}</strong>
+              <button data-idx="${idx}" class="remove-item text-sm">Quitar</button>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">${item.options || ''}</p>
+            <p class="mt-2 font-semibold">${formatMoney(item.price*item.qty)}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button data-idx-decr="${idx}" class="px-2 py-1 border rounded">-</button>
+            <div>${item.qty}</div>
+            <button data-idx-incr="${idx}" class="px-2 py-1 border rounded">+</button>
+          </div>
+        `;
+        cartItemsEl.appendChild(div);
       });
-      message += `Total: $${total}`;
-      
-      const phone = '526142425718'; // <-- Reemplaza con tu número de WhatsApp
-      window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-    }
-  </script>
-</body>
-</html>
+
+      // attach handlers for remove/incr/decr
+      cartItemsEl.querySelectorAll('.remove-item').forEach(btn=> btn.addEventListener('click', (e)=>{
+        const idx = Number(e.target.dataset.idx);
+        cart.splice(idx,1); updateCartUI();
+      }));
+      cartItemsEl.querySelectorAll('[data-idx-incr]').forEach(btn=> btn.addEventListener('click', (e)=>{
+        const idx = Number(e.target.dataset.idxIncr); cart[idx].qty++; updateCartUI();
+      }));
+      cartItemsEl.querySelectorAll('[data-idx-decr]').forEach(btn=> btn.addEventListener('click', (e)=>{
+        const idx = Number(e.target.dataset.idxDecr); if(cart[idx].qty>1) cart[idx].qty--; else cart.splice(idx,1); updateCartUI();
+      }));
+
+      const total = cart.reduce((s,i)=> s + i.price*i.qty,0);
+      cartTotalEl.textContent =
