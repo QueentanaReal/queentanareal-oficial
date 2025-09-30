@@ -1,230 +1,194 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Queentana Real — Tienda</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queentana Real</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root{
-      /* Ajusta estos colores según tu logo */
-      --brand-bg: #F9F6F0; /* fondo suave */
-      --brand-text: #1F1F1F; /* texto */
-      --accent: #C89B3A; /* dorado/real (ajusta) */
-      --muted: #BDB7AC;
-    }
-    body{background:var(--brand-bg); color:var(--brand-text)}
-    /* Modal backdrop */
-    .backdrop{background:rgba(0,0,0,0.35)}
-    /* Smooth small shadow for cards */
-    .card-shadow{box-shadow: 0 6px 18px rgba(31,31,31,0.08)}
-    /* placeholder for logo size */
-    .logo{height:56px; width:auto}
-  </style>
 </head>
-<body class="min-h-screen font-sans">
-  <!-- Top bar: logo, menu, cart -->
-  <header class="p-4 flex items-center justify-between">
-    <div class="flex items-center gap-4">
-      <!-- Logo: replace src with your uploaded logo file -->
-      <img src="assets/logo.png" alt="Queentana Real" class="logo" />
-      <div class="hidden md:block">
-        <h1 class="text-2xl font-semibold">Queentana <span class="text-sm">Real</span></h1>
-        <p class="text-xs text-gray-500">Repostería creativa • Sabor y elegancia</p>
-      </div>
-    </div>
+<body class="bg-[#F9F6F0] text-[#1F1F1F] font-sans relative">
 
-    <div class="flex items-center gap-3">
-      <!-- Socials -->
-      <nav class="hidden sm:flex gap-2 items-center">
-        <!-- Replace links with your pages -->
-        <a href="https://instagram.com/tu_cuenta" target="_blank" class="text-sm">Instagram</a>
-        <a href="https://facebook.com/tu_cuenta" target="_blank" class="text-sm">Facebook</a>
-        <a href="https://tiktok.com/@tu_cuenta" target="_blank" class="text-sm">TikTok</a>
-      </nav>
-
-      <!-- Cart button -->
-      <button id="open-cart" class="relative p-2 rounded-md hover:bg-white card-shadow">
-        🛒 <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--accent)] text-white text-xs rounded-full px-2">0</span>
+  <!-- Navbar -->
+  <header class="flex justify-between items-center p-4 bg-white shadow-md fixed w-full top-0 z-50">
+    <h1 class="text-xl font-bold">Queentana Real</h1>
+    <div class="flex gap-4 items-center">
+      <!-- Carrito -->
+      <button id="cartBtn" class="relative">
+        🛒
+        <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 rounded-full">0</span>
       </button>
-
-      <!-- Mobile menu (hamburger) -->
-      <button id="open-menu" class="p-2 md:hidden rounded-md hover:bg-white card-shadow">☰</button>
+      <!-- Menú hamburguesa -->
+      <button id="menuBtn" class="text-2xl">☰</button>
     </div>
   </header>
 
-  <!-- Welcome / Hero -->
-  <section class="px-6 py-6 md:py-12 md:px-12">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      <div>
-        <h2 class="text-4xl font-bold">Bienvenid@ a Queentana Real</h2>
-        <p class="mt-3 text-gray-600">Postres caseros, con toque real. Explora nuestros productos, elige tus sabores y recibe tu pedido por WhatsApp.</p>
-        <div class="mt-6 flex gap-3">
-          <a href="#productos" class="px-4 py-2 rounded-lg border" >Ver productos</a>
-          <button id="open-cart-hero" class="px-4 py-2 rounded-lg bg-[var(--accent)] text-white">Ir al carrito</button>
-        </div>
+  <!-- Bienvenida -->
+  <section class="h-screen flex flex-col justify-center items-center text-center bg-[#F9F6F0] px-6">
+    <img src="tu-logo.png" alt="Logo Queentana Real" class="w-32 mb-4">
+    <h2 class="text-3xl font-semibold">Bienvenidos a Queentana Real</h2>
+    <p class="text-lg mt-2">Postres con elegancia y sabor único.</p>
+  </section>
+
+  <!-- Productos -->
+  <section id="productos" class="p-6 bg-white">
+    <h3 class="text-2xl font-bold mb-4">Nuestros Productos</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Carlota -->
+      <div class="p-4 border rounded-lg shadow hover:shadow-lg cursor-pointer" onclick="openModal('carlota')">
+        <h4 class="text-xl font-semibold">Carlota</h4>
+        <p>$30 MXN (sencilla) <br> $35 MXN (con topping)</p>
       </div>
-      <div class="flex justify-center">
-        <img src="assets/hero.png" alt="Imagen estética de postres" class="w-full max-w-md" />
+
+      <!-- Gelatina -->
+      <div class="p-4 border rounded-lg shadow hover:shadow-lg cursor-pointer" onclick="openModal('gelatina')">
+        <h4 class="text-xl font-semibold">Gelatina</h4>
+        <p>Chica $12 MXN <br> Mediana $20 MXN</p>
+      </div>
+
+      <!-- Próximamente -->
+      <div class="p-4 border rounded-lg shadow bg-gray-100 text-gray-500">
+        <h4 class="text-xl font-semibold">Próximamente</h4>
+        <ul class="list-disc list-inside">
+          <li>Cupcakes</li>
+          <li>Galletas</li>
+          <li>Empanadas</li>
+          <li>Macarons</li>
+          <li>Accesorios</li>
+          <li>Y más...</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Productos -->
-  <main id="productos" class="px-6 pb-16">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Product cards will be injected by JS -->
-      <template id="product-template">
-        <article class="bg-white p-4 rounded-2xl card-shadow">
-          <img class="w-full h-40 object-cover rounded-xl" src="" alt="" />
-          <h3 class="mt-3 font-medium text-lg"></h3>
-          <p class="text-sm text-gray-500 mt-1"></p>
-          <div class="mt-3 flex items-center justify-between">
-            <span class="font-semibold"></span>
-            <button class="add-btn px-3 py-1 rounded-lg border">Agregar</button>
-          </div>
-        </article>
-      </template>
-    </div>
-
-    <!-- Próximamente -->
-    <section class="max-w-5xl mx-auto mt-8">
-      <h4 class="font-semibold">Próximamente</h4>
-      <div class="mt-3 flex flex-wrap gap-3 text-sm text-gray-500">
-        <span class="px-3 py-2 rounded-xl bg-white card-shadow">Cupcakes</span>
-        <span class="px-3 py-2 rounded-xl bg-white card-shadow">Galletas</span>
-        <span class="px-3 py-2 rounded-xl bg-white card-shadow">Empanadas</span>
-        <span class="px-3 py-2 rounded-xl bg-white card-shadow">Macaron</span>
-        <span class="px-3 py-2 rounded-xl bg-white card-shadow">Accesorios</span>
-      </div>
-    </section>
-  </main>
-
-  <!-- Cart Modal -->
-  <div id="cart-modal" class="fixed inset-0 hidden items-center justify-center z-40">
-    <div class="absolute inset-0 backdrop"></div>
-    <div class="relative bg-white rounded-2xl p-6 w-[95%] max-w-lg card-shadow">
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg font-semibold">Tu carrito</h3>
-        <button id="close-cart">✕</button>
-      </div>
-      <div id="cart-items" class="mt-4 space-y-3 max-h-64 overflow-auto">
-        <p class="text-sm text-gray-500">Aún no agregas nada.</p>
-      </div>
-      <div class="mt-4 flex items-center justify-between">
-        <div>
-          <p class="text-xs text-gray-500">Total</p>
-          <p id="cart-total" class="text-xl font-semibold">$0 MXN</p>
-        </div>
-        <div class="flex gap-2">
-          <button id="close-cart-2" class="px-3 py-2 border rounded-lg">Seguir comprando</button>
-          <button id="checkout" class="px-3 py-2 rounded-lg bg-[var(--accent)] text-white">Continuar a pagar</button>
-        </div>
+  <!-- Modal -->
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-80">
+      <h4 id="modalTitle" class="text-xl font-bold mb-4"></h4>
+      <div id="modalOptions"></div>
+      <p class="mt-4 font-semibold">Total: $<span id="modalTotal">0</span> MXN</p>
+      <div class="flex justify-between mt-4">
+        <button onclick="closeModal()" class="bg-gray-400 text-white px-4 py-2 rounded">Cancelar</button>
+        <button onclick="addToCart()" class="bg-green-600 text-white px-4 py-2 rounded">Agregar</button>
       </div>
     </div>
   </div>
 
-  <!-- Product detail / order modal -->
-  <div id="product-modal" class="fixed inset-0 hidden items-center justify-center z-50">
-    <div class="absolute inset-0 backdrop"></div>
-    <div class="relative bg-white rounded-2xl p-6 w-[95%] max-w-xl card-shadow">
-      <button id="close-product" class="absolute right-4 top-4">✕</button>
-      <div id="product-content"></div>
-    </div>
+  <!-- Carrito -->
+  <div id="cart" class="hidden fixed top-0 right-0 w-80 h-full bg-white shadow-lg z-50 p-6 overflow-y-auto">
+    <h4 class="text-xl font-bold mb-4">Tu carrito</h4>
+    <div id="cartItems"></div>
+    <p class="mt-4 font-semibold">Total: $<span id="cartTotal">0</span> MXN</p>
+    <button onclick="closeCart()" class="bg-red-600 text-white w-full mt-4 py-2 rounded">Cerrar</button>
   </div>
+
+  <!-- Redes sociales -->
+  <footer class="bg-[#F9F6F0] text-center py-6">
+    <p class="mb-2">Síguenos en</p>
+    <div class="flex justify-center gap-6 text-2xl">
+      <a href="https://www.facebook.com/queentanareal" target="_blank">📘</a>
+      <a href="https://www.instagram.com/queentanareal" target="_blank">📸</a>
+      <a href="https://www.tiktok.com/@queentanareal" target="_blank">🎵</a>
+    </div>
+  </footer>
 
   <script>
-    /* ---------- Datos de productos ---------- */
-    const PRODUCTS = [
-      {
-        id: 'carlota',
-        name: 'Carlota(s)',
-        img: 'assets/carlota.jpg',
-        description: 'Carlota tradicional. Selecciona si quieres topping.',
-        price: 30,
-        type: 'options',
-        toppings: ['Fresa','Mango','Nuez','Mazapan','Chispas payaso','Chispas de chocolate','Cacahuate']
-      },
-      {
-        id: 'gelatina',
-        name: 'Gelatina',
-        img: 'assets/gelatina.jpg',
-        description: 'Elige tamaño y sabor.',
-        type: 'gelatina',
-        sizes: [
-          {name:'Chica', price:12},
-          {name:'Mediana', price:20}
-        ],
-        sabores: ['Fresa','Limon','Naranja','Mixto']
-      }
-    ];
-
-    /* Cart state */
+    let currentProduct = "";
     let cart = [];
 
-    /* ---------- Helpers ---------- */
-    function formatMoney(n){ return '$'+n+' MXN'; }
+    const prices = {
+      carlota: { simple: 30, topping: 35 },
+      gelatina: { chica: 12, mediana: 20 }
+    };
 
-    /* ---------- Render productos ---------- */
-    const container = document.querySelector('#productos > div > div');
-    const template = document.getElementById('product-template');
-    const productGrid = document.querySelector('#productos .max-w-5xl > div');
+    function openModal(product) {
+      currentProduct = product;
+      document.getElementById("modal").classList.remove("hidden");
+      let options = "";
+      let title = "";
+      let total = 0;
 
-    PRODUCTS.forEach(p =>{
-      const node = template.content.cloneNode(true);
-      const article = node.querySelector('article');
-      article.querySelector('img').src = p.img;
-      article.querySelector('img').alt = p.name;
-      article.querySelector('h3').textContent = p.name;
-      article.querySelector('p').textContent = p.description;
-      article.querySelector('span').textContent = p.price ? formatMoney(p.price) : 'Precio variable';
-      const btn = article.querySelector('.add-btn');
-      btn.addEventListener('click', ()=> openProductModal(p.id));
-      productGrid.appendChild(node);
-    });
-
-    /* ---------- Cart UI ---------- */
-    const cartModal = document.getElementById('cart-modal');
-    const cartCount = document.getElementById('cart-count');
-    const cartItemsEl = document.getElementById('cart-items');
-    const cartTotalEl = document.getElementById('cart-total');
-
-    function updateCartUI(){
-      cartCount.textContent = cart.reduce((s,i)=> s + i.qty,0);
-      cartItemsEl.innerHTML = '';
-      if(cart.length === 0){ cartItemsEl.innerHTML = '<p class="text-sm text-gray-500">Aún no agregas nada.</p>' }
-      cart.forEach((item, idx)=>{
-        const div = document.createElement('div');
-        div.className = 'border rounded-lg p-3 flex items-start gap-3';
-        div.innerHTML = `
-          <div class="flex-1">
-            <div class="flex justify-between items-center">
-              <strong>${item.name}</strong>
-              <button data-idx="${idx}" class="remove-item text-sm">Quitar</button>
-            </div>
-            <p class="text-xs text-gray-500 mt-1">${item.options || ''}</p>
-            <p class="mt-2 font-semibold">${formatMoney(item.price*item.qty)}</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <button data-idx-decr="${idx}" class="px-2 py-1 border rounded">-</button>
-            <div>${item.qty}</div>
-            <button data-idx-incr="${idx}" class="px-2 py-1 border rounded">+</button>
+      if (product === "carlota") {
+        title = "Carlota";
+        options = `
+          <label><input type="radio" name="carlota" value="simple" checked> Sencilla - $30</label><br>
+          <label><input type="radio" name="carlota" value="topping"> Con topping - $35</label>
+          <div id="toppings" class="hidden mt-2">
+            <select class="border p-2 w-full">
+              <option>Fresa</option>
+              <option>Mango</option>
+              <option>Nuez</option>
+              <option>Mazapan</option>
+              <option>Chispas payaso</option>
+              <option>Chispas de chocolate</option>
+              <option>Cacahuate</option>
+            </select>
           </div>
         `;
-        cartItemsEl.appendChild(div);
+        total = prices.carlota.simple;
+      }
+
+      if (product === "gelatina") {
+        title = "Gelatina";
+        options = `
+          <label><input type="radio" name="gelatina" value="chica" checked> Chica - $12</label><br>
+          <label><input type="radio" name="gelatina" value="mediana"> Mediana - $20</label>
+          <div class="mt-2">
+            <select class="border p-2 w-full">
+              <option>Fresa</option>
+              <option>Mango</option>
+              <option>Uva</option>
+              <option>Durazno</option>
+            </select>
+          </div>
+        `;
+        total = prices.gelatina.chica;
+      }
+
+      document.getElementById("modalTitle").innerText = title;
+      document.getElementById("modalOptions").innerHTML = options;
+      document.getElementById("modalTotal").innerText = total;
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
+    }
+
+    function addToCart() {
+      cart.push({ product: currentProduct, price: parseInt(document.getElementById("modalTotal").innerText) });
+      updateCart();
+      closeModal();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById("cartItems");
+      cartItems.innerHTML = "";
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price;
+        cartItems.innerHTML += `
+          <div class="flex justify-between items-center border-b py-2">
+            <span>${item.product}</span>
+            <button onclick="removeFromCart(${index})" class="text-red-500">❌</button>
+          </div>
+        `;
       });
+      document.getElementById("cartTotal").innerText = total;
+      document.getElementById("cartCount").innerText = cart.length;
+    }
 
-      // attach handlers for remove/incr/decr
-      cartItemsEl.querySelectorAll('.remove-item').forEach(btn=> btn.addEventListener('click', (e)=>{
-        const idx = Number(e.target.dataset.idx);
-        cart.splice(idx,1); updateCartUI();
-      }));
-      cartItemsEl.querySelectorAll('[data-idx-incr]').forEach(btn=> btn.addEventListener('click', (e)=>{
-        const idx = Number(e.target.dataset.idxIncr); cart[idx].qty++; updateCartUI();
-      }));
-      cartItemsEl.querySelectorAll('[data-idx-decr]').forEach(btn=> btn.addEventListener('click', (e)=>{
-        const idx = Number(e.target.dataset.idxDecr); if(cart[idx].qty>1) cart[idx].qty--; else cart.splice(idx,1); updateCartUI();
-      }));
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
 
-      const total = cart.reduce((s,i)=> s + i.price*i.qty,0);
-      cartTotalEl.textContent =
+    document.getElementById("cartBtn").addEventListener("click", () => {
+      document.getElementById("cart").classList.remove("hidden");
+    });
+
+    function closeCart() {
+      document.getElementById("cart").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
