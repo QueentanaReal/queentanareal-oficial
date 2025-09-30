@@ -6,134 +6,188 @@
   <title>Queentana Real</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#F9F6F0] text-[#1F1F1F] relative font-sans">
+<body class="bg-[#F9F6F0] text-[#1F1F1F] font-sans relative">
+
+  <!-- Navbar -->
+  <header class="flex justify-between items-center p-4 bg-white shadow-md fixed w-full top-0 z-50">
+    <h1 class="text-xl font-bold">Queentana Real</h1>
+    <div class="flex gap-4 items-center">
+      <!-- Carrito -->
+      <button id="cartBtn" class="relative">
+        🛒
+        <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 rounded-full">0</span>
+      </button>
+      <!-- Menú hamburguesa -->
+      <button id="menuBtn" class="text-2xl">☰</button>
+    </div>
+  </header>
 
   <!-- Bienvenida -->
-  <section class="h-screen flex flex-col justify-center items-center text-center">
-    <img src="logo.png" alt="Queentana Real" class="w-48 mb-6">
-    <h1 class="text-4xl font-bold">Bienvenidos a Queentana Real</h1>
-    <p class="text-lg mt-2">Postres que endulzan tu vida con un toque real ✨</p>
+  <section class="h-screen flex flex-col justify-center items-center text-center bg-[#F9F6F0] px-6">
+    <img src="tu-logo.png" alt="Logo Queentana Real" class="w-32 mb-4">
+    <h2 class="text-3xl font-semibold">Bienvenidos a Queentana Real</h2>
+    <p class="text-lg mt-2">Postres con elegancia y sabor único.</p>
   </section>
-
-  <!-- Menú fijo -->
-  <nav class="fixed top-4 right-4 bg-white shadow-md rounded-xl p-3">
-    <ul class="space-y-2 text-sm">
-      <li><a href="#productos" class="hover:text-yellow-600">Productos</a></li>
-      <li><a href="#carrito" class="hover:text-yellow-600">Carrito</a></li>
-      <li><a href="#redes" class="hover:text-yellow-600">Redes</a></li>
-    </ul>
-  </nav>
 
   <!-- Productos -->
-  <section id="productos" class="p-10">
-    <h2 class="text-2xl font-bold mb-6">Nuestros Productos</h2>
-    
-    <!-- Carlota -->
-    <div class="bg-white shadow-md rounded-xl p-6 mb-6">
-      <h3 class="text-xl font-semibold">Carlota(s)</h3>
-      <p>Desde $30 MXN</p>
-      <button onclick="abrirModal('carlota')" class="mt-3 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">Elegir</button>
-    </div>
+  <section id="productos" class="p-6 bg-white">
+    <h3 class="text-2xl font-bold mb-4">Nuestros Productos</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-    <!-- Gelatinas -->
-    <div class="bg-white shadow-md rounded-xl p-6 mb-6">
-      <h3 class="text-xl font-semibold">Gelatinas</h3>
-      <p>Desde $12 MXN</p>
-      <button onclick="abrirModal('gelatina')" class="mt-3 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">Elegir</button>
-    </div>
+      <!-- Carlota -->
+      <div class="p-4 border rounded-lg shadow hover:shadow-lg cursor-pointer" onclick="openModal('carlota')">
+        <h4 class="text-xl font-semibold">Carlota</h4>
+        <p>$30 MXN (sencilla) <br> $35 MXN (con topping)</p>
+      </div>
 
-    <!-- Próximamente -->
-    <div class="bg-gray-100 shadow-inner rounded-xl p-6">
-      <h3 class="text-xl font-semibold">Próximamente...</h3>
-      <ul class="list-disc pl-5 mt-2">
-        <li>Cupcakes</li>
-        <li>Galletas</li>
-        <li>Empanadas</li>
-        <li>Macarons</li>
-        <li>Accesorios y más</li>
-      </ul>
+      <!-- Gelatina -->
+      <div class="p-4 border rounded-lg shadow hover:shadow-lg cursor-pointer" onclick="openModal('gelatina')">
+        <h4 class="text-xl font-semibold">Gelatina</h4>
+        <p>Chica $12 MXN <br> Mediana $20 MXN</p>
+      </div>
+
+      <!-- Próximamente -->
+      <div class="p-4 border rounded-lg shadow bg-gray-100 text-gray-500">
+        <h4 class="text-xl font-semibold">Próximamente</h4>
+        <ul class="list-disc list-inside">
+          <li>Cupcakes</li>
+          <li>Galletas</li>
+          <li>Empanadas</li>
+          <li>Macarons</li>
+          <li>Accesorios</li>
+          <li>Y más...</li>
+        </ul>
+      </div>
     </div>
   </section>
-
-  <!-- Carrito -->
-  <section id="carrito" class="p-10 bg-[#FFF8E7]">
-    <h2 class="text-2xl font-bold mb-4">Tu Carrito</h2>
-    <ul id="carritoLista" class="space-y-2"></ul>
-    <p class="mt-4 font-semibold">Total: $<span id="total">0</span> MXN</p>
-  </section>
-
-  <!-- Redes Sociales -->
-  <footer id="redes" class="bg-[#1F1F1F] text-white p-6 text-center">
-    <p>Síguenos en:</p>
-    <div class="flex justify-center space-x-6 mt-3">
-      <a href="https://www.facebook.com/queentana.real" target="_blank">Facebook</a>
-      <a href="https://www.instagram.com/queentana.real" target="_blank">Instagram</a>
-      <a href="https://www.tiktok.com/@queentana.real" target="_blank">TikTok</a>
-    </div>
-  </footer>
 
   <!-- Modal -->
-  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center">
-    <div class="bg-white rounded-xl p-6 w-80">
-      <h3 id="modalTitulo" class="text-xl font-bold"></h3>
-      <div id="modalOpciones" class="mt-4"></div>
-      <button onclick="cerrarModal()" class="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg">Cerrar</button>
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-80">
+      <h4 id="modalTitle" class="text-xl font-bold mb-4"></h4>
+      <div id="modalOptions"></div>
+      <p class="mt-4 font-semibold">Total: $<span id="modalTotal">0</span> MXN</p>
+      <div class="flex justify-between mt-4">
+        <button onclick="closeModal()" class="bg-gray-400 text-white px-4 py-2 rounded">Cancelar</button>
+        <button onclick="addToCart()" class="bg-green-600 text-white px-4 py-2 rounded">Agregar</button>
+      </div>
     </div>
   </div>
 
+  <!-- Carrito -->
+  <div id="cart" class="hidden fixed top-0 right-0 w-80 h-full bg-white shadow-lg z-50 p-6 overflow-y-auto">
+    <h4 class="text-xl font-bold mb-4">Tu carrito</h4>
+    <div id="cartItems"></div>
+    <p class="mt-4 font-semibold">Total: $<span id="cartTotal">0</span> MXN</p>
+    <button onclick="closeCart()" class="bg-red-600 text-white w-full mt-4 py-2 rounded">Cerrar</button>
+  </div>
+
+  <!-- Redes sociales -->
+  <footer class="bg-[#F9F6F0] text-center py-6">
+    <p class="mb-2">Síguenos en</p>
+    <div class="flex justify-center gap-6 text-2xl">
+      <a href="https://www.facebook.com/queentanareal" target="_blank">📘</a>
+      <a href="https://www.instagram.com/queentanareal" target="_blank">📸</a>
+      <a href="https://www.tiktok.com/@queentanareal" target="_blank">🎵</a>
+    </div>
+  </footer>
+
   <script>
-    let carrito = [];
-    let total = 0;
+    let currentProduct = "";
+    let cart = [];
 
-    function abrirModal(producto) {
-      const modal = document.getElementById('modal');
-      const titulo = document.getElementById('modalTitulo');
-      const opciones = document.getElementById('modalOpciones');
-      opciones.innerHTML = '';
-      
-      if (producto === 'carlota') {
-        titulo.textContent = 'Carlota';
-        opciones.innerHTML = `
-          <button onclick="agregarProducto('Carlota',30)">Carlota $30</button>
-          <button onclick="agregarProducto('Carlota con topping',35)">Carlota con topping $35</button>
+    const prices = {
+      carlota: { simple: 30, topping: 35 },
+      gelatina: { chica: 12, mediana: 20 }
+    };
+
+    function openModal(product) {
+      currentProduct = product;
+      document.getElementById("modal").classList.remove("hidden");
+      let options = "";
+      let title = "";
+      let total = 0;
+
+      if (product === "carlota") {
+        title = "Carlota";
+        options = `
+          <label><input type="radio" name="carlota" value="simple" checked> Sencilla - $30</label><br>
+          <label><input type="radio" name="carlota" value="topping"> Con topping - $35</label>
+          <div id="toppings" class="hidden mt-2">
+            <select class="border p-2 w-full">
+              <option>Fresa</option>
+              <option>Mango</option>
+              <option>Nuez</option>
+              <option>Mazapan</option>
+              <option>Chispas payaso</option>
+              <option>Chispas de chocolate</option>
+              <option>Cacahuate</option>
+            </select>
+          </div>
         `;
+        total = prices.carlota.simple;
       }
-      if (producto === 'gelatina') {
-        titulo.textContent = 'Gelatina';
-        opciones.innerHTML = `
-          <button onclick="agregarProducto('Gelatina chica',12)">Chica $12</button>
-          <button onclick="agregarProducto('Gelatina mediana',20)">Mediana $20</button>
+
+      if (product === "gelatina") {
+        title = "Gelatina";
+        options = `
+          <label><input type="radio" name="gelatina" value="chica" checked> Chica - $12</label><br>
+          <label><input type="radio" name="gelatina" value="mediana"> Mediana - $20</label>
+          <div class="mt-2">
+            <select class="border p-2 w-full">
+              <option>Fresa</option>
+              <option>Mango</option>
+              <option>Uva</option>
+              <option>Durazno</option>
+            </select>
+          </div>
         `;
+        total = prices.gelatina.chica;
       }
-      
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+
+      document.getElementById("modalTitle").innerText = title;
+      document.getElementById("modalOptions").innerHTML = options;
+      document.getElementById("modalTotal").innerText = total;
     }
 
-    function cerrarModal() {
-      document.getElementById('modal').classList.add('hidden');
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
     }
 
-    function agregarProducto(nombre, precio) {
-      carrito.push({nombre, precio});
-      total += precio;
-      actualizarCarrito();
-      cerrarModal();
+    function addToCart() {
+      cart.push({ product: currentProduct, price: parseInt(document.getElementById("modalTotal").innerText) });
+      updateCart();
+      closeModal();
     }
 
-    function quitarProducto(index) {
-      total -= carrito[index].precio;
-      carrito.splice(index,1);
-      actualizarCarrito();
-    }
-
-    function actualizarCarrito() {
-      const lista = document.getElementById('carritoLista');
-      lista.innerHTML = '';
-      carrito.forEach((item,i) => {
-        lista.innerHTML += `<li>${item.nombre} - $${item.precio} <button onclick="quitarProducto(${i})" class="ml-2 text-red-500">Quitar</button></li>`;
+    function updateCart() {
+      const cartItems = document.getElementById("cartItems");
+      cartItems.innerHTML = "";
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price;
+        cartItems.innerHTML += `
+          <div class="flex justify-between items-center border-b py-2">
+            <span>${item.product}</span>
+            <button onclick="removeFromCart(${index})" class="text-red-500">❌</button>
+          </div>
+        `;
       });
-      document.getElementById('total').textContent = total;
+      document.getElementById("cartTotal").innerText = total;
+      document.getElementById("cartCount").innerText = cart.length;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    document.getElementById("cartBtn").addEventListener("click", () => {
+      document.getElementById("cart").classList.remove("hidden");
+    });
+
+    function closeCart() {
+      document.getElementById("cart").classList.add("hidden");
     }
   </script>
 </body>
