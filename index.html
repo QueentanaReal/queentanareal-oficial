@@ -4,127 +4,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Queentana Real</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #FAF7F2; /* Fondo suave del logo */
-      color: #2E2E2E; /* Negro elegante */
-    }
-    header {
-      text-align: center;
-      padding: 30px 10px;
-      background: #FAF7F2;
-      border-bottom: 3px solid #C6A24A; /* Oro */
-    }
-    header img {
-      max-width: 260px;
-      height: auto;
-    }
-    h1 {
-      text-align: center;
-      color: #C6A24A; /* Oro */
-      font-size: 2.5rem;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    p {
-      text-align: center;
-      font-size: 1.1rem;
-      color: #2E2E2E;
-      margin-bottom: 30px;
-    }
-    .productos {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding: 30px;
-    }
-    .card {
-      background: #fff;
-      border: 2px solid #C6A24A; /* Oro */
-      border-radius: 15px;
-      width: 220px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    }
-    .card h3 {
-      margin: 10px 0;
-      color: #2E2E2E;
-      font-size: 1.2rem;
-    }
-    .precio {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #C6A24A; /* Oro */
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #FAF7F2;
-      border-top: 3px solid #C6A24A;
-      margin-top: 40px;
-    }
-    footer p {
-      margin-bottom: 10px;
-      font-weight: bold;
-      color: #2E2E2E;
-    }
-    footer a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: #2E2E2E;
-      font-weight: bold;
-      transition: color 0.3s ease-in-out;
-    }
-    footer a:hover {
-      color: #C6A24A;
-    }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <!-- Logo (asegúrate que esté en la misma carpeta que index.html y se llame logo.png) -->
-    <img src="logo.png" alt="Queentana Real Logo">
+<body class="bg-[#F9F6F0] text-[#1F1F1F]">
+  <!-- Navbar -->
+  <header class="flex justify-between items-center p-4 bg-[#F9F6F0] shadow-md">
+    <h1 class="text-2xl font-bold text-[#C9A44C]">Queentana Real</h1>
+    <nav>
+      <ul class="flex gap-6 font-medium">
+        <li><a href="#inicio" class="hover:text-[#C9A44C]">Inicio</a></li>
+        <li><a href="#productos" class="hover:text-[#C9A44C]">Productos</a></li>
+        <li><a href="#nosotros" class="hover:text-[#C9A44C]">Nosotros</a></li>
+        <li><a href="#contacto" class="hover:text-[#C9A44C]">Contacto</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main>
-    <h1>Bienvenidos a Queentana Real</h1>
-    <p>Repostería elegante y deliciosa para cada ocasión ✨</p>
+  <!-- Hero -->
+  <section id="inicio" class="text-center py-16 bg-gradient-to-r from-[#F9F6F0] to-[#fff]">
+    <h2 class="text-4xl font-extrabold text-[#C9A44C]">Bienvenidos a Queentana Real</h2>
+    <p class="mt-4 text-lg">Repostería y más, con el toque real que mereces.</p>
+    <a href="#productos" class="mt-6 inline-block bg-[#C9A44C] text-white px-6 py-3 rounded-xl shadow hover:opacity-90 transition">Ver productos</a>
+  </section>
 
-    <section class="productos">
-      <div class="card">
-        <h3>Carlota</h3>
-        <p class="precio">$30</p>
+  <!-- Productos -->
+  <section id="productos" class="py-16 px-8">
+    <h3 class="text-3xl font-bold text-center text-[#C9A44C] mb-10">Catálogo de Productos</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white rounded-2xl shadow p-4 text-center hover:scale-105 transition">
+        <img src="https://source.unsplash.com/400x300/?carlota" alt="Carlota" class="rounded-xl mx-auto">
+        <h4 class="mt-4 text-xl font-semibold">Carlota</h4>
+        <p class="text-gray-600">Postre clásico con un toque especial.</p>
+        <p class="mt-2 font-bold text-[#C9A44C]">$30 MXN</p>
       </div>
-      <div class="card">
-        <h3>Carlota con topping</h3>
-        <p class="precio">$35</p>
+      <div class="bg-white rounded-2xl shadow p-4 text-center hover:scale-105 transition">
+        <img src="https://source.unsplash.com/400x300/?dessert" alt="Carlota con topping" class="rounded-xl mx-auto">
+        <h4 class="mt-4 text-xl font-semibold">Carlota con Topping</h4>
+        <p class="text-gray-600">Con extra de sabor para los más exigentes.</p>
+        <p class="mt-2 font-bold text-[#C9A44C]">$35 MXN</p>
       </div>
-      <div class="card">
-        <h3>Gelatinas</h3>
-        <p class="precio">$12</p>
+      <div class="bg-white rounded-2xl shadow p-4 text-center hover:scale-105 transition">
+        <img src="https://source.unsplash.com/400x300/?gelatin" alt="Gelatina" class="rounded-xl mx-auto">
+        <h4 class="mt-4 text-xl font-semibold">Gelatinas</h4>
+        <p class="text-gray-600">Refrescantes y coloridas.</p>
+        <p class="mt-2 font-bold text-[#C9A44C]">$12 MXN</p>
       </div>
-      <div class="card">
-        <h3>Cupcakes y galletas</h3>
-        <p class="precio">Próximamente</p>
-      </div>
-    </section>
-  </main>
+    </div>
 
-  <footer>
-    <p>Síguenos en nuestras redes sociales:</p>
-    <a href="https://www.facebook.com/share/v/16iE99qQbR/" target="_blank">Facebook</a>
-    <a href="https://www.instagram.com/queentana_real?utm_source=ig_web_button_share_sheet&igsh=Mmh4d202MnFtb3Yy" target="_blank">Instagram</a>
-    <a href="https://www.tiktok.com/@queentanareal?_t=ZS-904BzuIjp3N&_r=1" target="_blank">TikTok</a>
+    <!-- Próximamente -->
+    <div class="mt-12 text-center">
+      <h4 class="text-xl font-semibold text-[#C9A44C]">Próximamente...</h4>
+      <p class="text-gray-600 mt-2">🧁 Cupcakes · 🍪 Galletas creativas · 🌸 Macarons · 🎀 Accesorios y más</p>
+    </div>
+  </section>
+
+  <!-- Nosotros -->
+  <section id="nosotros" class="bg-[#F9F6F0] py-16 px-8 text-center">
+    <h3 class="text-3xl font-bold text-[#C9A44C] mb-6">Sobre Nosotros</h3>
+    <p class="max-w-2xl mx-auto text-gray-700">En <strong>Queentana Real</strong> creemos que cada detalle cuenta. Nacimos como un pequeño emprendimiento de repostería, pero soñamos con crecer y ofrecerte mucho más. Cada producto está hecho con dedicación, pasión y un toque de realeza.</p>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="py-16 px-8">
+    <h3 class="text-3xl font-bold text-center text-[#C9A44C] mb-6">Contáctanos</h3>
+    <div class="flex justify-center gap-6 mt-6">
+      <a href="https://www.instagram.com/queentana_real?utm_source=ig_web_button_share_sheet&igsh=Mmh4d202MnFtb3Yy" target="_blank" class="text-[#C9A44C] text-3xl hover:opacity-80"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/share/v/16iE99qQbR/" target="_blank" class="text-[#C9A44C] text-3xl hover:opacity-80"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.tiktok.com/@queentanareal?_t=ZS-904BzuIjp3N&_r=1" target="_blank" class="text-[#C9A44C] text-3xl hover:opacity-80"><i class="fab fa-tiktok"></i></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#C9A44C] text-center py-4 mt-10">
+    <p class="text-white">&copy; 2025 Queentana Real - Todos los derechos reservados</p>
   </footer>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/6dcf5b99d8.js" crossorigin="anonymous"></script>
 </body>
 </html>
