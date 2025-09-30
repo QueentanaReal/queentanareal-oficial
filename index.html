@@ -5,138 +5,175 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Queentana Real</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body class="bg-[#F9F6F0] text-[#1F1F1F] font-serif">
+<body class="bg-[#F9F6F0] text-[#1F1F1F] relative">
 
   <!-- Navbar -->
-  <header class="flex justify-between items-center p-4 bg-white shadow-md fixed w-full z-50">
-    <!-- Logo -->
-    <div class="flex items-center space-x-2">
-      <img src="logo.png" alt="Logo Queentana Real" class="h-10">
-      <h1 class="text-xl font-bold text-[#C9A227]">Queentana Real</h1>
-    </div>
-
-    <!-- Menú -->
-    <nav class="hidden md:flex space-x-6">
-      <a href="#inicio" class="hover:text-[#C9A227]">Inicio</a>
-      <a href="#productos" class="hover:text-[#C9A227]">Productos</a>
-      <a href="#proximamente" class="hover:text-[#C9A227]">Próximamente</a>
-      <a href="#contacto" class="hover:text-[#C9A227]">Contacto</a>
+  <header class="flex justify-between items-center px-6 py-4 bg-[#1F1F1F] text-white">
+    <h1 class="text-xl font-bold">👑 Queentana Real</h1>
+    <nav>
+      <ul class="flex gap-4">
+        <li><a href="#productos" class="hover:text-yellow-400">Productos</a></li>
+        <li><a href="#carrito" class="hover:text-yellow-400">Carrito</a></li>
+        <li><a href="#contacto" class="hover:text-yellow-400">Contacto</a></li>
+      </ul>
     </nav>
-
-    <!-- Carrito -->
-    <button class="relative">
-      <i data-feather="shopping-cart" class="w-6 h-6"></i>
-      <span id="cart-count" class="absolute -top-2 -right-2 bg-[#C9A227] text-white text-xs px-2 rounded-full">0</span>
-    </button>
   </header>
 
   <!-- Bienvenida -->
-  <section id="inicio" class="h-screen flex flex-col justify-center items-center text-center px-4">
-    <h2 class="text-4xl font-bold mb-4">Bienvenid@ a <span class="text-[#C9A227]">Queentana Real</span></h2>
-    <p class="max-w-xl text-lg">Repostería con elegancia, sabor y un toque especial para cada ocasión.</p>
+  <section class="text-center py-12">
+    <h2 class="text-3xl font-bold text-[#1F1F1F]">Bienvenidos a Queentana Real</h2>
+    <p class="mt-4 text-lg text-gray-700">El toque elegante y dulce que estabas buscando ✨</p>
   </section>
 
   <!-- Productos -->
-  <section id="productos" class="py-16 bg-white">
-    <h3 class="text-3xl font-bold text-center mb-10">Nuestros Productos</h3>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
+  <section id="productos" class="px-6 py-8">
+    <h3 class="text-2xl font-bold mb-6">Nuestros Productos</h3>
 
-      <!-- Carlota -->
-      <div class="border rounded-xl shadow-md p-4 text-center">
-        <h4 class="text-xl font-bold mb-2">Carlota</h4>
-        <p>$30 MXN</p>
-        <p class="text-sm text-gray-600">Con topping $35 MXN</p>
-        <button onclick="openModal('carlotaModal')" class="mt-3 bg-[#C9A227] text-white px-4 py-2 rounded-lg hover:bg-[#a8821d]">Seleccionar</button>
-      </div>
+    <!-- Carlota -->
+    <div class="border p-4 rounded-lg shadow mb-6">
+      <h4 class="text-xl font-semibold">Carlota(s)</h4>
+      <p class="text-gray-600">Clásica $30 MXN</p>
+      <p class="text-gray-600">Con topping $35 MXN</p>
+      <button onclick="abrirMenu('carlota')" class="mt-3 bg-yellow-500 text-white px-4 py-2 rounded">Hacer pedido</button>
+    </div>
 
-      <!-- Gelatina -->
-      <div class="border rounded-xl shadow-md p-4 text-center">
-        <h4 class="text-xl font-bold mb-2">Gelatina</h4>
-        <p>$12 MXN</p>
-        <button onclick="openModal('gelatinaModal')" class="mt-3 bg-[#C9A227] text-white px-4 py-2 rounded-lg hover:bg-[#a8821d]">Seleccionar</button>
-      </div>
+    <!-- Gelatina -->
+    <div class="border p-4 rounded-lg shadow mb-6">
+      <h4 class="text-xl font-semibold">Gelatina</h4>
+      <p class="text-gray-600">Desde $12 MXN</p>
+      <button onclick="abrirMenu('gelatina')" class="mt-3 bg-yellow-500 text-white px-4 py-2 rounded">Hacer pedido</button>
+    </div>
+
+    <!-- Próximamente -->
+    <div class="border p-4 rounded-lg shadow">
+      <h4 class="text-xl font-semibold">Próximamente...</h4>
+      <ul class="list-disc ml-6 text-gray-600">
+        <li>Cupcakes</li>
+        <li>Galletas</li>
+        <li>Empanadas</li>
+        <li>Macarons</li>
+        <li>Accesorios y más</li>
+      </ul>
     </div>
   </section>
 
-  <!-- Próximamente -->
-  <section id="proximamente" class="py-16 bg-[#F9F6F0] text-center">
-    <h3 class="text-3xl font-bold mb-6">Próximamente</h3>
-    <p class="text-lg">Cupcakes, Galletas, Empanadas, Macarons, Accesorios y más...</p>
-  </section>
-
-  <!-- Contacto / Redes -->
-  <section id="contacto" class="py-10 bg-white text-center">
-    <h3 class="text-2xl font-bold mb-4">Síguenos</h3>
-    <div class="flex justify-center space-x-6 text-[#C9A227]">
-      <a href="https://www.facebook.com/tu_pagina" target="_blank"><i data-feather="facebook"></i></a>
-      <a href="https://www.instagram.com/tu_pagina" target="_blank"><i data-feather="instagram"></i></a>
-      <a href="https://www.tiktok.com/@tu_pagina" target="_blank"><i data-feather="music"></i></a>
-    </div>
-  </section>
-
-  <!-- Modal Carlota -->
-  <div id="carlotaModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-    <div class="bg-white rounded-xl p-6 w-80 text-center">
-      <h4 class="text-xl font-bold mb-4">Elige tu Carlota</h4>
-      <select id="carlotaSelect" class="border p-2 w-full mb-4">
-        <option value="30">Sin topping ($30)</option>
-        <option value="35">Con topping ($35)</option>
-      </select>
-      <p>Total: $<span id="carlotaTotal">30</span> MXN</p>
-      <div class="mt-4 flex justify-between">
-        <button onclick="closeModal('carlotaModal')" class="px-4 py-2 border rounded-lg">Cancelar</button>
-        <button onclick="addToCart('Carlota')" class="px-4 py-2 bg-[#C9A227] text-white rounded-lg">Agregar</button>
+  <!-- Modal Opciones -->
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg w-96 relative">
+      <button onclick="cerrarMenu()" class="absolute top-2 right-2 text-gray-600">✖</button>
+      <h4 id="modal-title" class="text-xl font-bold mb-4"></h4>
+      <div id="modal-options" class="space-y-3"></div>
+      <div class="mt-4">
+        <button onclick="agregarCarrito()" class="bg-green-600 text-white px-4 py-2 rounded">Agregar al carrito</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Gelatina -->
-  <div id="gelatinaModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-    <div class="bg-white rounded-xl p-6 w-80 text-center">
-      <h4 class="text-xl font-bold mb-4">Elige tu Gelatina</h4>
-      <select id="gelatinaSelect" class="border p-2 w-full mb-4">
-        <option value="12">Chica ($12)</option>
-        <option value="20">Mediana ($20)</option>
-        <option value="30">Grande ($30)</option>
-      </select>
-      <p>Total: $<span id="gelatinaTotal">12</span> MXN</p>
-      <div class="mt-4 flex justify-between">
-        <button onclick="closeModal('gelatinaModal')" class="px-4 py-2 border rounded-lg">Cancelar</button>
-        <button onclick="addToCart('Gelatina')" class="px-4 py-2 bg-[#C9A227] text-white rounded-lg">Agregar</button>
-      </div>
-    </div>
-  </div>
+  <!-- Carrito -->
+  <section id="carrito" class="px-6 py-8">
+    <h3 class="text-2xl font-bold mb-4">Carrito de Compras 🛒</h3>
+    <ul id="lista-carrito" class="space-y-2 text-gray-700"></ul>
+    <p class="mt-4 font-bold">Total: $<span id="total">0</span> MXN</p>
+  </section>
 
-  <!-- Scripts -->
+  <!-- Redes sociales -->
+  <footer id="contacto" class="bg-[#1F1F1F] text-white py-6 text-center">
+    <p>Síguenos en nuestras redes:</p>
+    <div class="flex justify-center gap-6 mt-3">
+      <a href="https://facebook.com/queentanareal" target="_blank">📘 Facebook</a>
+      <a href="https://instagram.com/queentanareal" target="_blank">📸 Instagram</a>
+      <a href="https://tiktok.com/@queentanareal" target="_blank">🎵 TikTok</a>
+    </div>
+    <p class="mt-4 text-gray-400 text-sm">© 2025 Queentana Real</p>
+  </footer>
+
   <script>
-    feather.replace();
+    let carrito = [];
+    let productoActual = null;
 
-    function openModal(id) {
-      document.getElementById(id).classList.remove("hidden");
+    function abrirMenu(producto) {
+      const modal = document.getElementById('modal');
+      const title = document.getElementById('modal-title');
+      const options = document.getElementById('modal-options');
+      modal.classList.remove('hidden');
+      productoActual = producto;
+      options.innerHTML = '';
+
+      if (producto === 'carlota') {
+        title.innerText = 'Carlota(s)';
+        options.innerHTML = `
+          <label><input type="radio" name="opcion" value="Carlota - $30" checked> Clásica ($30)</label><br>
+          <label><input type="radio" name="opcion" value="Carlota con topping - $35"> Con topping ($35)</label>
+        `;
+      } else if (producto === 'gelatina') {
+        title.innerText = 'Gelatina';
+        options.innerHTML = `
+          <label>Tamaño:
+            <select id="tamano">
+              <option value="Chica">Chica</option>
+              <option value="Mediana">Mediana</option>
+              <option value="Grande">Grande</option>
+            </select>
+          </label><br>
+          <label>Sabor:
+            <select id="sabor">
+              <option>Fresa</option>
+              <option>Mango</option>
+              <option>Limón</option>
+            </select>
+          </label>
+          <p class="mt-2">Precio base: $12 MXN</p>
+        `;
+      }
     }
-    function closeModal(id) {
-      document.getElementById(id).classList.add("hidden");
+
+    function cerrarMenu() {
+      document.getElementById('modal').classList.add('hidden');
     }
 
-    // Precios dinámicos
-    document.getElementById("carlotaSelect").addEventListener("change", (e) => {
-      document.getElementById("carlotaTotal").textContent = e.target.value;
-    });
-    document.getElementById("gelatinaSelect").addEventListener("change", (e) => {
-      document.getElementById("gelatinaTotal").textContent = e.target.value;
-    });
+    function agregarCarrito() {
+      let item = '';
+      let precio = 0;
 
-    // Carrito
-    let cartCount = 0;
-    function addToCart(product) {
-      cartCount++;
-      document.getElementById("cart-count").textContent = cartCount;
-      alert(product + " agregado al carrito 🎉");
-      closeModal(product.toLowerCase() + "Modal");
+      if (productoActual === 'carlota') {
+        const opcion = document.querySelector('input[name="opcion"]:checked').value;
+        item = opcion;
+        precio = opcion.includes('topping') ? 35 : 30;
+      } else if (productoActual === 'gelatina') {
+        const tamano = document.getElementById('tamano').value;
+        const sabor = document.getElementById('sabor').value;
+        item = `Gelatina ${tamano} (${sabor})`;
+        precio = 12;
+      }
+
+      carrito.push({ item, precio });
+      actualizarCarrito();
+      cerrarMenu();
+    }
+
+    function eliminarDelCarrito(index) {
+      carrito.splice(index, 1);
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById('lista-carrito');
+      const totalEl = document.getElementById('total');
+      lista.innerHTML = '';
+      let total = 0;
+
+      carrito.forEach((p, i) => {
+        lista.innerHTML += `
+          <li>${p.item} - $${p.precio} 
+            <button onclick="eliminarDelCarrito(${i})" class="ml-2 text-red-600">Eliminar</button>
+          </li>
+        `;
+        total += p.precio;
+      });
+
+      totalEl.innerText = total;
     }
   </script>
-
 </body>
 </html>
