@@ -6,7 +6,7 @@
   <title>Queentana Real</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#F9F6F0] text-[#1F1F1F]">
+<body class="bg-[#F9F6F0] text-[#1F1F1F] relative">
   <!-- Navbar -->
   <header class="flex justify-between items-center p-4 bg-[#F9F6F0] shadow-md">
     <h1 class="text-2xl font-bold text-[#C9A44C]">Queentana Real</h1>
@@ -18,6 +18,11 @@
         <li><a href="#contacto" class="hover:text-[#C9A44C]">Contacto</a></li>
       </ul>
     </nav>
+    <!-- Botón carrito -->
+    <button id="cartBtn" class="relative text-[#C9A44C] text-2xl">
+      🛒
+      <span id="cartCount" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">0</span>
+    </button>
   </header>
 
   <!-- Hero -->
@@ -36,25 +41,22 @@
         <h4 class="mt-4 text-xl font-semibold">Carlota</h4>
         <p class="text-gray-600">Postre clásico con un toque especial.</p>
         <p class="mt-2 font-bold text-[#C9A44C]">$30 MXN</p>
+        <button onclick="addToCart('Carlota',30)" class="mt-3 bg-[#C9A44C] text-white px-4 py-2 rounded-lg hover:opacity-90">Agregar al carrito</button>
       </div>
       <div class="bg-white rounded-2xl shadow p-4 text-center hover:scale-105 transition">
         <img src="https://source.unsplash.com/400x300/?dessert" alt="Carlota con topping" class="rounded-xl mx-auto">
         <h4 class="mt-4 text-xl font-semibold">Carlota con Topping</h4>
         <p class="text-gray-600">Con extra de sabor para los más exigentes.</p>
         <p class="mt-2 font-bold text-[#C9A44C]">$35 MXN</p>
+        <button onclick="addToCart('Carlota con Topping',35)" class="mt-3 bg-[#C9A44C] text-white px-4 py-2 rounded-lg hover:opacity-90">Agregar al carrito</button>
       </div>
       <div class="bg-white rounded-2xl shadow p-4 text-center hover:scale-105 transition">
         <img src="https://source.unsplash.com/400x300/?gelatin" alt="Gelatina" class="rounded-xl mx-auto">
         <h4 class="mt-4 text-xl font-semibold">Gelatinas</h4>
         <p class="text-gray-600">Refrescantes y coloridas.</p>
         <p class="mt-2 font-bold text-[#C9A44C]">$12 MXN</p>
+        <button onclick="addToCart('Gelatina',12)" class="mt-3 bg-[#C9A44C] text-white px-4 py-2 rounded-lg hover:opacity-90">Agregar al carrito</button>
       </div>
-    </div>
-
-    <!-- Próximamente -->
-    <div class="mt-12 text-center">
-      <h4 class="text-xl font-semibold text-[#C9A44C]">Próximamente...</h4>
-      <p class="text-gray-600 mt-2">🧁 Cupcakes · 🍪 Galletas creativas · 🌸 Macarons · 🎀 Accesorios y más</p>
     </div>
   </section>
 
@@ -65,14 +67,23 @@
   </section>
 
   <!-- Contacto -->
-  <section id="contacto" class="py-16 px-8">
+  <section id="contacto" class="py-16 px-8 text-center">
     <h3 class="text-3xl font-bold text-center text-[#C9A44C] mb-6">Contáctanos</h3>
+    <p class="text-gray-700 mb-4">Síguenos en nuestras redes sociales:</p>
     <div class="flex justify-center gap-6 mt-6">
       <a href="https://www.instagram.com/queentana_real?utm_source=ig_web_button_share_sheet&igsh=Mmh4d202MnFtb3Yy" target="_blank" class="text-[#C9A44C] text-3xl hover:opacity-80"><i class="fab fa-instagram"></i></a>
       <a href="https://www.facebook.com/share/v/16iE99qQbR/" target="_blank" class="text-[#C9A44C] text-3xl hover:opacity-80"><i class="fab fa-facebook"></i></a>
       <a href="https://www.tiktok.com/@queentanareal?_t=ZS-909BLUtTa41&_r=1" target="_blank" class="text-[#C9A44C] text-3xl hover:opacity-80"><i class="fab fa-tiktok"></i></a>
     </div>
   </section>
+
+  <!-- Carrito -->
+  <aside id="cartPanel" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform translate-x-full transition-transform p-6 z-50">
+    <h3 class="text-2xl font-bold text-[#C9A44C] mb-4">🛒 Tu Carrito</h3>
+    <ul id="cartItems" class="space-y-2 text-gray-700"></ul>
+    <p class="mt-4 font-bold">Total: $<span id="cartTotal">0</span> MXN</p>
+    <button onclick="closeCart()" class="mt-6 bg-[#C9A44C] text-white px-4 py-2 rounded-lg w-full">Cerrar</button>
+  </aside>
 
   <!-- Footer -->
   <footer class="bg-[#C9A44C] text-center py-4 mt-10">
@@ -81,5 +92,42 @@
 
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/6dcf5b99d8.js" crossorigin="anonymous"></script>
+
+  <!-- Script Carrito -->
+  <script>
+    const cartBtn = document.getElementById('cartBtn');
+    const cartPanel = document.getElementById('cartPanel');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartCount = document.getElementById('cartCount');
+
+    let cart = [];
+    
+    function addToCart(product, price) {
+      cart.push({ product, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price;
+        const li = document.createElement('li');
+        li.textContent = `${item.product} - $${item.price} MXN`;
+        cartItems.appendChild(li);
+      });
+      cartTotal.textContent = total;
+      cartCount.textContent = cart.length;
+    }
+
+    cartBtn.addEventListener('click', () => {
+      cartPanel.classList.toggle('translate-x-full');
+    });
+
+    function closeCart() {
+      cartPanel.classList.add('translate-x-full');
+    }
+  </script>
 </body>
 </html>
