@@ -1,3 +1,5 @@
+CON TRANSFERENCIA "QUEENTANA REAL"
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -12,55 +14,56 @@
       --brand-bg: #F9F6F0;
       --brand-text:#1F1F1F;
       --accent-gold: #C69B4B;
+      --muted:#8b8380;
     }
     body{background:var(--brand-bg); color:var(--brand-text);}    
     .glass{backdrop-filter: blur(6px); background: rgba(255,255,255,0.55);} 
   </style>
 </head>
 <body class="min-h-screen font-sans">
-
-  <!-- Header -->
+  <!-- Top bar -->
   <header class="p-4 flex items-center justify-between max-w-6xl mx-auto">
     <div class="flex items-center gap-3">
       <img src="LOGO DEFINITIVO.png" alt="Queentana Real" class="w-20 h-20 object-contain"/>
-      <h1 class="text-2xl font-semibold">Queentana <span class="text-sm text-gray-600">Real</span></h1>
+      <div>
+        <h1 class="text-2xl font-semibold">Queentana <span class="text-sm text-gray-600">Real</span></h1>
+        <p class="text-sm text-gray-500">Repostería artesanal • Elegancia con sazón</p>
+      </div>
     </div>
 
-    <button id="cartBtn" class="relative p-2 rounded-md glass">
-      🛒
-      <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-2">0</span>
-    </button>
+    <div class="flex items-center gap-3">
+      <nav class="hidden md:flex gap-3 items-center">
+        <a href="https://www.instagram.com/queentana_real?utm_source=ig_web_button_share_sheet&igsh=Mmh4d202MnFtb3Yy" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/share/v/16iE99qQbR/" target="_blank">Facebook</a>
+        <a href="https://www.tiktok.com/@queentanareal?_t=ZS-909BLUtTa41&_r=1" target="_blank">TikTok</a>
+      </nav>
+      <button id="menuBtn" class="p-2 rounded-md glass md:hidden">☰</button>
+      <button id="cartBtn" class="relative p-2 rounded-md glass">
+        🛒
+        <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-2">0</span>
+      </button>
+    </div>
   </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-6 items-center">
+    <div>
+      <h2 class="text-4xl font-bold leading-tight">Bienvenida a <span style="color:var(--accent-gold)">Queentana Real</span></h2>
+      <p class="mt-3 text-gray-600">Dulces con corazón y estilo. Explora nuestros postres, elige tus toppings y finaliza el pedido. ¡Tu antojo, nuestro reino!</p>
+      <div class="mt-6 flex gap-3">
+        <a href="#productos" class="px-4 py-2 rounded-2xl glass">Ver productos</a>
+        <a id="ctaWhats" href="#" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold); color:white">Pedir</a>
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl p-6 shadow-md">
+      <img src="hero-dessert.jpg" alt="Postres" class="w-full h-56 object-cover rounded-lg"/>
+    </div>
+  </section>
 
   <!-- Productos -->
   <main id="productos" class="max-w-6xl mx-auto p-6">
-    <!-- Sección 1 -->
-    <h3 class="text-2xl font-bold mb-4">Caprichos Helados</h3>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <article class="bg-white p-4 rounded-xl shadow">
-        <img src="carlota.jpg" alt="Carlota" class="h-40 w-full object-cover rounded-md"/>
-        <h5 class="mt-3 font-semibold">Carlota</h5>
-        <p class="text-sm text-gray-500">Sencilla $30 / con topping $35</p>
-      </article>
-      <article class="bg-white p-4 rounded-xl shadow">
-        <img src="gelatina.jpg" alt="Gelatina de mosaico" class="h-40 w-full object-cover rounded-md"/>
-        <h5 class="mt-3 font-semibold">Gelatina de mosaico</h5>
-        <p class="text-sm text-gray-500">$25</p>
-      </article>
-    </div>
-
-    <!-- Sección 2 -->
-    <h3 class="text-2xl font-bold mt-10 mb-4">Momento Dulce</h3>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <article class="bg-white p-4 rounded-xl shadow"><h5>Cupcakes</h5><p>$13</p></article>
-      <article class="bg-white p-4 rounded-xl shadow"><h5>Galletas</h5><p>$12</p></article>
-      <article class="bg-white p-4 rounded-xl shadow"><h5>Empanadas</h5><p>$16</p></article>
-      <article class="bg-white p-4 rounded-xl shadow"><h5>Macaron</h5><p>$14</p></article>
-    </div>
-
-    <!-- Sección 3 -->
-    <h3 class="text-2xl font-bold mt-10 mb-4">Accesorios y más</h3>
-    <p class="text-gray-500">Próximamente...</p>
+    <h3 class="text-2xl font-semibold mb-4">Nuestros productos</h3>
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
   </main>
 
   <!-- Carrito -->
@@ -68,65 +71,109 @@
     <h4 class="font-semibold">Tu carrito</h4>
     <div id="cartItems" class="mt-3 space-y-2 max-h-56 overflow-auto"></div>
     <div class="mt-3 flex justify-between items-center">
-      <div><div class="text-sm text-gray-500">Total</div><div id="cartTotal" class="font-bold text-lg">$0 MXN</div></div>
-      <button id="checkoutBtn" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold);color:white">Pagar</button>
+      <div>
+        <div class="text-sm text-gray-500">Total</div>
+        <div id="cartTotal" class="font-bold text-lg">$0 MXN</div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <button id="checkoutBtn" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold); color:white">Continuar a pagar</button>
+        <button id="closeCart" class="px-3 py-1 rounded-md text-sm text-gray-600">Cerrar</button>
+      </div>
     </div>
   </aside>
 
-  <!-- Modal forma de pago -->
-  <div id="payModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center">
-    <div class="bg-white p-6 rounded-2xl w-96">
-      <h3 class="text-lg font-semibold mb-4">Elige tu forma de pago</h3>
-      <button id="payCash" class="w-full py-2 mb-3 rounded-lg" style="background:var(--accent-gold);color:white">Efectivo</button>
-      <button id="payTransfer" class="w-full py-2 rounded-lg bg-gray-200">Transferencia</button>
+  <!-- Modal de pago por transferencia -->
+  <div id="transferModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center">
+    <div class="bg-white p-6 rounded-2xl w-11/12 max-w-lg">
+      <h3 class="text-xl font-bold mb-2">Pago por Transferencia</h3>
+      <p class="text-sm text-gray-600 mb-4">Realiza tu transferencia a la siguiente cuenta:</p>
+      <div class="bg-gray-100 p-3 rounded mb-4">
+        <p><strong>Banco:</strong> BBVA</p>
+        <p><strong>Cuenta:</strong> 1234 5678 9012</p>
+        <p><strong>Clabe:</strong> 012345678901234567</p>
+        <p><strong>Beneficiario:</strong> Queentana Real</p>
+      </div>
+      <p class="text-sm mb-2">Sube aquí la captura de tu comprobante:</p>
+      <input id="fileInput" type="file" accept="image/*" class="mb-3"/>
+      <p class="text-xs text-gray-500">* Al continuar, se abrirá WhatsApp con tu pedido. No olvides adjuntar la captura en el chat antes de enviarlo.</p>
+      <div class="flex gap-2 mt-4">
+        <button id="sendTransferBtn" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold); color:white">Enviar pedido</button>
+        <button id="cancelTransferBtn" class="px-4 py-2 rounded-2xl glass">Cancelar</button>
+      </div>
     </div>
   </div>
 
-  <!-- Modal transferencia -->
-  <div id="transferModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center">
-    <div class="bg-white p-6 rounded-2xl w-96">
-      <h3 class="text-lg font-semibold mb-4">Pago por Transferencia</h3>
-      <p><b>Banco:</b> BBVA</p>
-      <p><b>Cuenta:</b> 4152314408183773</p>
-      <p><b>Titular:</b> Tania Jocelin Ontiveros Quintana</p>
-      <p class="text-sm text-gray-500 mt-3">Una vez hecha tu transferencia, manda tu comprobante vía WhatsApp:</p>
-      <a id="sendProof" href="#" class="block mt-4 text-center px-4 py-2 rounded-lg" style="background:var(--accent-gold);color:white">Mandar comprobante</a>
-    </div>
-  </div>
+  <footer class="max-w-6xl mx-auto p-6 text-center text-sm text-gray-500">
+    © Queentana Real — Hecho con amor y dedicación.
+  </footer>
 
   <script>
+    /* Productos de ejemplo */
+    const PRODUCTS = [
+      {id: 'carlota', title: 'Carlota', img: 'carlota.jpg', price: 30},
+      {id: 'gelatina', title: 'Gelatina', img: 'gelatina.jpg', price: 20}
+    ];
+    const grid = document.getElementById("productGrid");
+    PRODUCTS.forEach(p=>{
+      const card=document.createElement("div");
+      card.className="bg-white p-4 rounded-xl shadow-sm";
+      card.innerHTML=`<img src="${p.img}" class="h-40 w-full object-cover rounded-md"/>
+        <h5 class="mt-3 font-semibold">${p.title}</h5>
+        <button class="addToCart mt-2 px-3 py-2 rounded-lg glass" data-id="${p.id}">Agregar - $${p.price}</button>`;
+      grid.appendChild(card);
+    });
+
+    /* Carrito */
     let CART=[];
+    const renderCart=()=>{
+      document.getElementById("cartCount").textContent=CART.length;
+      const cont=document.getElementById("cartItems");
+      cont.innerHTML="";
+      let total=0;
+      CART.forEach((it,i)=>{
+        total+=it.price;
+        const div=document.createElement("div");
+        div.className="flex justify-between items-center p-2 border rounded";
+        div.innerHTML=`<span>${it.title}</span><span>$${it.price} MXN</span>`;
+        cont.appendChild(div);
+      });
+      document.getElementById("cartTotal").textContent=`$${total} MXN`;
+    };
+    document.addEventListener("click",e=>{
+      if(e.target.matches(".addToCart")){
+        const id=e.target.dataset.id;
+        const p=PRODUCTS.find(x=>x.id===id);
+        CART.push(p);renderCart();
+      }
+    });
+    document.getElementById("cartBtn").onclick=()=>document.getElementById("cartPanel").classList.toggle("hidden");
+    document.getElementById("closeCart").onclick=()=>document.getElementById("cartPanel").classList.add("hidden");
 
-    const $=s=>document.querySelector(s);
-    function renderCart(){
-      $('#cartItems').innerHTML = CART.map((p,i)=>`<div class="flex justify-between"><span>${p}</span><button onclick="removeItem(${i})" class="text-red-500">X</button></div>`).join('');
-      $('#cartTotal').textContent=`$${CART.length*20} MXN`; // demo
-      $('#cartCount').textContent=CART.length;
-    }
-    function removeItem(i){ CART.splice(i,1); renderCart(); }
+    /* Checkout */
+    const transferModal=document.getElementById("transferModal");
+    document.getElementById("checkoutBtn").onclick=()=>{
+      if(CART.length===0){alert("Tu carrito está vacío.");return;}
+      transferModal.classList.remove("hidden");
+      transferModal.classList.add("flex");
+    };
+    document.getElementById("cancelTransferBtn").onclick=()=>transferModal.classList.add("hidden");
 
-    $('#cartBtn').onclick=()=>$('#cartPanel').classList.toggle('hidden');
-    $('#checkoutBtn').onclick=()=>$('#payModal').classList.remove('hidden');
+    /* Enviar pedido por WhatsApp */
+    document.getElementById("sendTransferBtn").onclick=()=>{
+      const phone="526142425718";
+      let msg="*Pedido Queentana Real*\n";
+      let total=0;
+      CART.forEach(it=>{
+        total+=it.price;
+        msg+=`\n- ${it.title}: $${it.price} MXN`;
+      });
+      msg+=`\n\n*Total: $${total} MXN*\n\nMétodo: Transferencia\nAdjunta aquí la captura de tu pago.`;
+      const url=`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+      window.open(url,"_blank");
+      transferModal.classList.add("hidden");
+    };
 
-    // Pago en efectivo
-    $('#payCash').onclick=()=>{
-      $('#payModal').classList.add('hidden');
-      const folio=Math.floor(1000+Math.random()*9000);
-      const msg=encodeURIComponent(`Hola, quiero pagar en efectivo. Mi pedido: ${CART.join(', ')}. Folio #${folio}`);
-      window.open(`https://wa.me/526142425718?text=${msg}`,'_blank');
-    }
-
-    // Pago por transferencia
-    $('#payTransfer').onclick=()=>{
-      $('#payModal').classList.add('hidden');
-      $('#transferModal').classList.remove('hidden');
-    }
-
-    $('#sendProof').onclick=(e)=>{
-      e.preventDefault();
-      const msg=encodeURIComponent("Hola, adjunto comprobante de pago de mi pedido.");
-      window.open(`https://wa.me/526142425718?text=${msg}`,'_blank');
-    }
+    document.getElementById("ctaWhats").onclick=(e)=>{e.preventDefault();document.getElementById("checkoutBtn").click();}
   </script>
 </body>
 </html>
