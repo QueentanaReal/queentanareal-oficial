@@ -8,10 +8,11 @@
   <title>Queentana Real — Tienda</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* Custom tiny tweaks to match a refined brand look */
     :root{
-      --brand-bg: #F9F6F0;
-      --brand-text:#1F1F1F;
-      --accent-gold: #C69B4B;
+      --brand-bg: #F9F6F0; /* soft cream */
+      --brand-text:#1F1F1F;  /* dark text */
+      --accent-gold: #C69B4B; /* gold-ish */
       --muted:#8b8380;
     }
     body{background:var(--brand-bg); color:var(--brand-text);}    
@@ -19,23 +20,29 @@
   </style>
 </head>
 <body class="min-h-screen font-sans">
-
-  <!-- Header -->
+  <!-- Top bar with logo, social and cart -->
   <header class="p-4 flex items-center justify-between max-w-6xl mx-auto">
     <div class="flex items-center gap-3">
+      <!-- Replace 'logo.png' with your actual logo file (same folder) -->
       <img src="LOGO DEFINITIVO.png" alt="Queentana Real" class="w-20 h-20 object-contain"/>
       <div>
         <h1 class="text-2xl font-semibold">Queentana <span class="text-sm text-gray-600">Real</span></h1>
         <p class="text-sm text-gray-500">Repostería artesanal • Elegancia con sazón</p>
       </div>
     </div>
+
     <div class="flex items-center gap-3">
+      <!-- Socials (replace # with your URLs) -->
       <nav class="hidden md:flex gap-3 items-center">
-        <a href="https://www.instagram.com/queentana_real" target="_blank" aria-label="Instagram">Instagram</a>
-        <a href="https://www.facebook.com/share/v/16iE99qQbR/" target="_blank" aria-label="Facebook">Facebook</a>
-        <a href="https://www.tiktok.com/@queentanareal" target="_blank" aria-label="TikTok">TikTok</a>
+        <a href=https://www.instagram.com/queentana_real?utm_source=ig_web_button_share_sheet&igsh=Mmh4d202MnFtb3Yy target="_blank" aria-label="Instagram">Instagram</a>
+        <a href=https://www.facebook.com/share/v/16iE99qQbR/ target="_blank" aria-label="Facebook">Facebook</a>
+        <a href=https://www.tiktok.com/@queentanareal?_t=ZS-909BLUtTa41&_r=1 target="_blank" aria-label="TikTok">TikTok</a>
       </nav>
+
+      <!-- Menu (hamburger) -->
       <button id="menuBtn" class="p-2 rounded-md glass md:hidden">☰</button>
+
+      <!-- Cart icon -->
       <button id="cartBtn" class="relative p-2 rounded-md glass">
         🛒
         <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-2">0</span>
@@ -43,27 +50,28 @@
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- Welcome / Hero -->
   <section class="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-6 items-center">
     <div>
       <h2 class="text-4xl font-bold leading-tight">Bienvenida a <span style="color:var(--accent-gold)">Queentana Real</span></h2>
       <p class="mt-3 text-gray-600">Dulces con corazón y estilo. Explora nuestros postres, elige tus toppings y finaliza el pedido por WhatsApp. ¡Tu antojo, nuestro reino!</p>
+
       <div class="mt-6 flex gap-3">
         <a href="#productos" class="px-4 py-2 rounded-2xl glass">Ver productos</a>
         <a id="ctaWhats" href="#" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold); color:white">Pedir por WhatsApp</a>
       </div>
     </div>
     <div class="bg-white rounded-2xl p-6 shadow-md">
+      <!-- Small promo / image placeholder -->
       <img src="hero-dessert.jpg" alt="Postres" class="w-full h-56 object-cover rounded-lg"/>
     </div>
   </section>
 
   <!-- Products -->
   <main id="productos" class="max-w-6xl mx-auto p-6">
-
-    <h3 class="text-2xl font-semibold mb-4">Caprichos Helados</h3>
+    <h3 class="text-2xl font-semibold mb-4">Nuestros productos</h3>
     <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Product cards will be populated by JS -->
+      <!-- Product cards are filled by JS -->
     </div>
 
     <section class="mt-8">
@@ -78,7 +86,7 @@
     </section>
   </main>
 
-  <!-- Floating cart -->
+  <!-- Floating cart panel -->
   <aside id="cartPanel" class="fixed right-4 bottom-4 w-96 bg-white p-4 rounded-2xl shadow-lg hidden">
     <h4 class="font-semibold">Tu carrito</h4>
     <div id="cartItems" class="mt-3 space-y-2 max-h-56 overflow-auto"></div>
@@ -94,7 +102,7 @@
     </div>
   </aside>
 
-  <!-- Product modal -->
+  <!-- Product modal (detail & options) -->
   <div id="productModal" class="fixed inset-0 flex items-center justify-center bg-black/40 hidden">
     <div class="bg-white rounded-2xl p-6 w-11/12 max-w-xl">
       <button id="closeModal" class="text-gray-500">✕</button>
@@ -102,7 +110,7 @@
     </div>
   </div>
 
-  <!-- Pago transferencia -->
+  <!-- 🔑 Pago por transferencia (nuevo) -->
   <div id="transferModal" class="fixed inset-0 flex items-center justify-center bg-black/40 hidden">
     <div class="bg-white rounded-2xl p-6 w-11/12 max-w-lg">
       <button id="closeTransfer" class="text-gray-500">✕</button>
@@ -110,7 +118,8 @@
       <p class="text-sm text-gray-600 mt-2">Realiza tu transferencia con los siguientes datos:</p>
       <div class="mt-3 p-3 bg-gray-50 rounded text-sm">
         <p><strong>Banco:</strong> BBVA</p>
-        <p><strong>Cuenta:</strong> 4152314408183773</p>
+        <p><strong>Cuenta:</strong> 1234567890</p>
+        <p><strong>Clabe:</strong> 002345678901234567</p>
         <p><strong>Titular:</strong> Tania Jocelin Ontiveros Quintana</p>
       </div>
       <form id="transferForm" class="mt-4 space-y-3">
@@ -129,48 +138,61 @@
   </footer>
 
   <script>
-    /* ---------- Products Data ---------- */
+    /* ---------- Data ---------- */
     const PRODUCTS = [
       {
-        id: 'carlota',
-        title: 'Carlota',
-        img: 'carlota.jpg',
-        basePrice: 30,
-        toppingPrice: 35,
-        toppings: ['Fresa','Mango','Nuez','Mazapan','Chispas payaso','Chispas de chocolate','Cacahuate']
+        id: 'carlota', title: 'Carlota', img: 'carlota.jpg',
+        variants: [
+          {id:'base', name:'Carlota (sin topping)', price:30},
+          {id:'topping', name:'Carlota con topping', price:35}
+        ],
+        toppings:['Fresa','Mango','Nuez','Mazapan','Chispas payaso','Chispas de chocolate','Cacahuate']
       },
-      { id:'gelatina', title:'Gelatina', img:'gelatina.jpg', sizes:[{id:'md',name:'Mediana', price:25}], flavors:['Mosaico'] }
+      {
+        id: 'gelatina', title:'Gelatina', img:'gelatina.jpg',
+        sizes:[ {id:'ch',name:'Chica', price:12}, {id:'md',name:'Mediana', price:20} ],
+        flavors:['Fresa','Limón','Uva','Mango']
+      }
     ];
 
+    /* ---------- Helpers ---------- */
     const $ = s => document.querySelector(s);
     const $$ = s => document.querySelectorAll(s);
 
-    /* ---------- Render Products ---------- */
+    /* ---------- Render products ---------- */
     const grid = $('#productGrid');
     function renderProducts(){
       grid.innerHTML = '';
       PRODUCTS.forEach(p=>{
         const card = document.createElement('article');
-        card.className='bg-white p-4 rounded-xl shadow-sm';
-        card.innerHTML=`
+        card.className = 'bg-white p-4 rounded-xl shadow-sm';
+        card.innerHTML = `
           <img src="${p.img}" alt="${p.title}" class="h-40 w-full object-cover rounded-md"/>
           <h5 class="mt-3 font-semibold">${p.title}</h5>
           <p class="text-sm text-gray-500 mt-1">Toca para ver opciones y pedir</p>
           <div class="mt-3 flex justify-between items-center">
             <button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Ver</button>
-            <div class="text-sm text-gray-700">${p.id==='carlota'?'$30 - $35 MXN':'$25 MXN'}</div>
+            <div class="text-sm text-gray-700">${getSamplePrice(p)}</div>
           </div>
         `;
         grid.appendChild(card);
-      });
+      })
     }
+
+    function getSamplePrice(p){
+      if(p.id==='carlota') return '$30 - $35 MXN';
+      if(p.id==='gelatina') return '$12 - $20 MXN';
+      return '';
+    }
+
     renderProducts();
 
-    /* ---------- Modal Product ---------- */
+    /* ---------- Modal logic for products (FIX) ---------- */
     const modal = $('#productModal');
     const modalContent = $('#modalContent');
 
-    document.addEventListener('click', e=>{
+    // Use event delegation and closest for robustness
+    document.addEventListener('click', (e)=>{
       const btn = e.target.closest && e.target.closest('.openProductBtn');
       if(btn) openProduct(btn.dataset.id);
     });
@@ -182,118 +204,151 @@
       if(p.id==='carlota'){
         modalContent.innerHTML = `
           <h3 class="text-xl font-semibold">Carlota</h3>
-          <div class="mt-3">
-            <label>Tipo:</label>
-            <select id="tipoCarlota" class="border p-1 rounded">
-              <option value="normal">Carlota ($30)</option>
-              <option value="conTopping">Carlota con topping ($35)</option>
-            </select>
+          <p class="text-sm text-gray-500">Elige si deseas topping (si seleccionas, el precio aumentará).</p>
+          <div class="mt-3 bg-gray-50 p-3 rounded">
+            <label class="flex items-center gap-2"><input type='radio' name='carlotaType' value='base' checked/> Carlota(s) (Sin topping) - $30 MXN</label>
+            <label class="flex items-center gap-2 mt-2"><input type='radio' name='carlotaType' value='topping'/> Carlota(s) con topping - $35 MXN</label>
           </div>
-          <div id="toppingsContainer" class="mt-3 hidden">
-            <label>Selecciona tus toppings 🍓🥭🍫:</label>
-            <div id="toppingOptions" class="flex flex-wrap gap-2 mt-1">
-              ${p.toppings.map(t=>`<label class="px-2 py-1 border rounded cursor-pointer"><input type="checkbox" value="${t}"/> ${t}</label>`).join('')}
+          <div id='toppingOptions' class='mt-3 hidden'>
+            <label class='text-sm text-gray-600'>Selecciona topping</label>
+            <div class='mt-2 flex gap-2 flex-wrap'>
+              ${p.toppings.map(t=>`<button type="button" class="toppingBtn px-3 py-1 rounded-full glass" data-t="${t}">${t}</button>`).join('')}
+            </div>
+            <div class='mt-3 text-sm text-gray-500'>Topping seleccionado: <span id='selectedTopping'>—</span></div>
+          </div>
+          <div class='mt-4 flex justify-between items-center'>
+            <div>
+              <label class='text-sm'>Cantidad</label>
+              <input id='qty' type='number' value='1' min='1' class='ml-2 w-16 border rounded p-1'/>
+            </div>
+            <div class='text-right'>
+              <div class='text-sm text-gray-500'>Total</div>
+              <div id='modalTotal' class='font-bold'>$30 MXN</div>
             </div>
           </div>
-          <div class="mt-3 font-bold" id="modalTotal">Total: $30 MXN</div>
-          <div class="mt-4 flex gap-2">
-            <button id="addCarlota" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold); color:white">Agregar al carrito</button>
-            <button id="cancelAdd" class="px-4 py-2 rounded-2xl glass">Cancelar</button>
+          <div class='mt-4 flex gap-2'>
+            <button id='addCarlota' class='px-4 py-2 rounded-2xl' style='background:var(--accent-gold); color:white'>Agregar al carrito</button>
+            <button id='cancelAdd' class='px-4 py-2 rounded-2xl glass'>Cancelar</button>
           </div>
         `;
 
-        const tipoEl = $('#tipoCarlota');
-        const toppingContainer = $('#toppingsContainer');
-        const checkboxes = $('#toppingOptions').querySelectorAll('input[type="checkbox"]');
-        const totalEl = $('#modalTotal');
-
-        function updateTotal(){
-          let total = tipoEl.value==='normal'?30:35;
-          const checked = Array.from(checkboxes).filter(c=>c.checked);
-          if(checked.length>1) total += (checked.length-1)*5;
-          totalEl.textContent=`Total: $${total} MXN`;
-        }
-
-        tipoEl.addEventListener('change', ()=>{
-          toppingContainer.style.display = tipoEl.value==='conTopping'?'block':'none';
-          checkboxes.forEach(c=>c.checked=false);
-          updateTotal();
-        });
-
-        checkboxes.forEach(c=>c.addEventListener('change', updateTotal));
-
-        $('#addCarlota').addEventListener('click', ()=>{
-          const selectedToppings = Array.from(checkboxes).filter(c=>c.checked).map(c=>c.value);
-          let basePrice = tipoEl.value==='normal'?30:35;
-          let toppingExtra = selectedToppings.length>1?(selectedToppings.length-1)*5:0;
-          addToCart({
-            id:'carlota-'+Date.now(),
-            productId:'carlota',
-            title:`Carlota ${tipoEl.value==='conTopping'?'con topping':''}`,
-            qty:1,
-            price:basePrice+toppingExtra,
-            options:{toppings:selectedToppings}
-          });
+        // listeners inside modal
+        modal.querySelectorAll("input[name='carlotaType']").forEach(r=>r.addEventListener('change', updateCarlotaUI));
+        modal.querySelectorAll('.toppingBtn').forEach(b=>b.addEventListener('click', e=>{
+          modal.querySelectorAll('.toppingBtn').forEach(x=>x.classList.remove('bg-gray-200'));
+          e.currentTarget.classList.add('bg-gray-200');
+          modal.querySelector('#selectedTopping').textContent = e.currentTarget.dataset.t;
+        }));
+        modal.querySelector('#qty').addEventListener('input', updateCarlotaTotal);
+        modal.querySelector('#addCarlota').addEventListener('click', ()=>{
+          const type = modal.querySelector("input[name='carlotaType']:checked").value;
+          const qty = Number(modal.querySelector('#qty').value||1);
+          const topping = modal.querySelector('#selectedTopping').textContent;
+          const price = type==='base'?30:35;
+          addToCart({id: 'carlota-'+Date.now(), productId:'carlota', title:'Carlota'+(type==='topping'?' con topping':''), qty, price, options: {topping: topping==='—'?null:topping}});
           closeModal();
         });
-
-        $('#cancelAdd').addEventListener('click', closeModal);
-        toppingContainer.style.display='none';
+        modal.querySelector('#cancelAdd').addEventListener('click', closeModal);
+        updateCarlotaUI();
       }
 
       if(p.id==='gelatina'){
-        modalContent.innerHTML=`
+        modalContent.innerHTML = `
           <h3 class="text-xl font-semibold">Gelatina</h3>
-          <div class="mt-3">
-            <label>Tamaño:</label>
-            <select id="gelSize" class="border p-1 rounded">
-              <option value="md" data-price="25">Mediana - $25 MXN</option>
-            </select>
+          <p class='text-sm text-gray-500'>Selecciona tamaño y sabor.</p>
+          <div class='mt-3'>
+            ${p.sizes.map(s=>`<label class='flex items-center gap-2'><input type='radio' name='gelSize' value='${s.id}' data-price='${s.price}' ${s.id==='ch'?'checked':''}/> ${s.name} - $${s.price} MXN</label>`).join('')}
           </div>
-          <div class="mt-3">
-            <label>Sabor:</label>
-            <select id="gelFlavor" class="border p-1 rounded mt-1">
+          <div class='mt-3'>
+            <label class='text-sm'>Sabor</label>
+            <select id='gelFlavor' class='w-full mt-1 border rounded p-2'>
               ${p.flavors.map(f=>`<option>${f}</option>`).join('')}
             </select>
           </div>
-          <div class="mt-3 font-bold" id="modalTotal">Total: $25 MXN</div>
-          <div class="mt-4 flex gap-2">
-            <button id="addGel" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold); color:white">Agregar al carrito</button>
-            <button id="cancelGel" class="px-4 py-2 rounded-2xl glass">Cancelar</button>
+          <div class='mt-4 flex justify-between items-center'>
+            <div>
+              <label class='text-sm'>Cantidad</label>
+              <input id='qtyGel' type='number' value='1' min='1' class='ml-2 w-16 border rounded p-1'/>
+            </div>
+            <div class='text-right'>
+              <div class='text-sm text-gray-500'>Total</div>
+              <div id='modalTotal' class='font-bold'>$12 MXN</div>
+            </div>
+          </div>
+          <div class='mt-4 flex gap-2'>
+            <button id='addGel' class='px-4 py-2 rounded-2xl' style='background:var(--accent-gold); color:white'>Agregar al carrito</button>
+            <button id='cancelGel' class='px-4 py-2 rounded-2xl glass'>Cancelar</button>
           </div>
         `;
-        $('#addGel').addEventListener('click', ()=>{
-          const sizeEl=$('#gelSize'); const flavor=$('#gelFlavor').value;
-          addToCart({id:'gel-'+Date.now(), productId:'gelatina', title:`Gelatina (${flavor})`, qty:1, price:Number(sizeEl.selectedOptions[0].dataset.price), options:{flavor}});
+
+        modal.querySelectorAll("input[name='gelSize']").forEach(r=>r.addEventListener('change', updateGelTotal));
+        modal.querySelector('#qtyGel').addEventListener('input', updateGelTotal);
+        modal.querySelector('#addGel').addEventListener('click', ()=>{
+          const sizeEl = modal.querySelector("input[name='gelSize']:checked");
+          const sizeId = sizeEl.value;
+          // get size name by matching in PRODUCTS
+          const sizeName = sizeEl.parentNode.textContent.trim().split(' - ')[0] || sizeId;
+          const price = Number(sizeEl.dataset.price);
+          const qty = Number(modal.querySelector('#qtyGel').value||1);
+          const flavor = modal.querySelector('#gelFlavor').value;
+          addToCart({id:'gel-'+Date.now(), productId:'gelatina', title:`Gelatina (${sizeName})`, qty, price, options:{flavor}});
           closeModal();
         });
-        $('#cancelGel').addEventListener('click', closeModal);
+        modal.querySelector('#cancelGel').addEventListener('click', closeModal);
+        updateGelTotal();
       }
 
       modal.classList.remove('hidden');
     }
 
     function closeModal(){ modal.classList.add('hidden'); modalContent.innerHTML=''; }
-    modal.addEventListener('click', ev=>{if(ev.target===modal) closeModal();});
+
+    // close modal when clicking outside content
+    modal.addEventListener('click', (ev)=>{ if(ev.target===modal) closeModal(); });
+
+    // ensure close button works
     $('#closeModal').addEventListener('click', closeModal);
 
-    /* ---------- Cart ---------- */
+    function updateCarlotaUI(){
+      const type = modal.querySelector("input[name='carlotaType']:checked").value;
+      const el = modal.querySelector('#toppingOptions');
+      if(el) el.classList.toggle('hidden', type!=='topping' ? true : false);
+      updateCarlotaTotal();
+    }
+    function updateCarlotaTotal(){
+      const type = modal.querySelector("input[name='carlotaType']:checked").value;
+      const qty = Number(modal.querySelector('#qty').value||1);
+      const price = type==='base'?30:35;
+      const total = price * qty;
+      const totalEl = modal.querySelector('#modalTotal');
+      if(totalEl) totalEl.textContent = `$${total} MXN`;
+    }
+    function updateGelTotal(){
+      const sizeEl = modal.querySelector("input[name='gelSize']:checked");
+      const price = Number(sizeEl.dataset.price);
+      const qty = Number(modal.querySelector('#qtyGel').value||1);
+      const totalEl = modal.querySelector('#modalTotal');
+      if(totalEl) totalEl.textContent = `$${price*qty} MXN`;
+    }
+
+    /* ---------- Cart logic ---------- */
     let CART = JSON.parse(localStorage.getItem('qr_cart')||'[]');
     function saveCart(){ localStorage.setItem('qr_cart', JSON.stringify(CART)); renderCart(); }
+
     function addToCart(item){ CART.push(item); saveCart(); alert('Agregado al carrito'); }
 
     function renderCart(){
-      $('#cartCount').textContent=CART.length;
-      const container=$('#cartItems'); container.innerHTML='';
-      let total=0;
+      $('#cartCount').textContent = CART.length;
+      const container = $('#cartItems'); container.innerHTML='';
+      let total = 0;
       CART.forEach((it, idx)=>{
-        total+=it.qty*it.price;
-        const div=document.createElement('div');
-        div.className='flex justify-between items-start gap-2 p-2 border rounded';
-        div.innerHTML=`
+        total += it.qty * it.price;
+        const div = document.createElement('div');
+        div.className = 'flex justify-between items-start gap-2 p-2 border rounded';
+        div.innerHTML = `
           <div>
             <div class='font-semibold'>${it.title}</div>
-            <div class='text-sm text-gray-500'>${it.options&&it.options.toppings?it.options.toppings.join(', '):''}</div>
+            <div class='text-sm text-gray-500'>${it.options&&Object.keys(it.options).length?Object.entries(it.options).map(o=>o[0]+': '+o[1]).join(', '):''}</div>
             <div class='text-sm text-gray-600 mt-1'>Cantidad: ${it.qty}</div>
           </div>
           <div class='text-right'>
@@ -303,34 +358,53 @@
         `;
         container.appendChild(div);
       });
-      $('#cartTotal').textContent=`$${total} MXN`;
-      container.querySelectorAll('.removeItem').forEach(b=>b.addEventListener('click', e=>{CART.splice(Number(e.target.dataset.idx),1); saveCart();}));
-    }
-    renderCart();
-    $('#cartBtn').addEventListener('click', ()=>$('#cartPanel').classList.toggle('hidden'));
-    $('#closeCart').addEventListener('click', ()=>$('#cartPanel').classList.add('hidden'));
+      $('#cartTotal').textContent = `$${total} MXN`;
 
-    /* ---------- Checkout ---------- */
+      // remove handlers
+      container.querySelectorAll('.removeItem').forEach(b=>b.addEventListener('click', e=>{
+        const i = Number(e.target.dataset.idx); CART.splice(i,1); saveCart();
+      }));
+    }
+
+    renderCart();
+
+    // Toggle cart panel
+    $('#cartBtn').addEventListener('click', ()=>{ $('#cartPanel').classList.toggle('hidden'); });
+    $('#closeCart').addEventListener('click', ()=>{ $('#cartPanel').classList.add('hidden'); });
+
+    // Checkout -> abrir modal de transferencia
     $('#checkoutBtn').addEventListener('click', ()=>{
       if(CART.length===0){ alert('Tu carrito está vacío.'); return; }
-      const method=prompt("Elige forma de pago: Efectivo o Transferencia").toLowerCase();
-      if(method==='efectivo'){
-        const mensaje="Hola, quiero realizar mi pedido: "+CART.map(it=>`${it.title} x${it.qty}`).join(', ') + ". Mi folio: "+Math.floor(Math.random()*9000+1000);
-        window.open(`https://wa.me/6142425718?text=${encodeURIComponent(mensaje)}`);
-      }else if(method==='transferencia'){
-        $('#transferModal').classList.remove('hidden');
-      }
+      $('#transferModal').classList.remove('hidden');
     });
 
-    $('#closeTransfer').addEventListener('click', ()=>$('#transferModal').classList.add('hidden'));
-    $('#transferForm').addEventListener('submit', e=>{
+    // Cerrar modal transferencia
+    $('#closeTransfer').addEventListener('click',()=>$('#transferModal').classList.add('hidden'));
+
+    // Enviar comprobante
+    $('#transferForm').addEventListener('submit',e=>{
       e.preventDefault();
-      alert('Comprobante enviado correctamente. Nos pondremos en contacto.');
+      const file=$('#transferFile').files[0];
+      const name=$('#transferName').value;
+      if(!file||!name){alert('Completa todos los campos.');return;}
+      // Aquí podrías subir el archivo a un servidor o enviarlo por API. Por ahora solo simulamos.
+      alert('Gracias '+name+' 🙌. Tu comprobante fue recibido. Confirmaremos tu pago pronto.');
       $('#transferModal').classList.add('hidden');
-      CART=[];
-      saveCart();
+      CART=[]; saveCart();
+    });
+
+    // CTA WhatsApp top -> mantiene comportamiento previo (abre transferencia en este flujo)
+    $('#ctaWhats').addEventListener('click', (e)=>{ e.preventDefault(); $('#checkoutBtn').click(); });
+
+    // small helpers
+    $('#menuBtn').addEventListener('click', ()=>{ alert('Aquí podrías abrir el menú lateral (opción a expandir).')});
+
+    // init image placeholders if missing
+    window.addEventListener('load', ()=>{
+      document.querySelectorAll('img').forEach(img=>{
+        img.addEventListener('error', ()=>{ img.src='https://via.placeholder.com/400x300?text=Queentana'; });
+      });
     });
   </script>
 </body>
 </html>
-
