@@ -118,7 +118,7 @@ body{background:var(--brand-bg); color:var(--brand-text);}
   <div class="bg-white rounded-2xl p-6 w-11/12 max-w-lg">
     <button id="closeTransfer" class="text-gray-500">✕</button>
     <h3 class="text-xl font-semibold mt-2">Pago por transferencia</h3>
-    <p class="text-sm text-gray-600 mt-2">Realiza tu transferencia con los siguientes datos:</p>
+    <p class="text-sm text-gray-600 mt-2">📌Realiza tu transferencia con los siguientes datos:</p>
     <div class="mt-3 p-3 bg-gray-50 rounded text-sm">
       <p><strong>Banco:</strong> BBVA</p>
       <p><strong>Cuenta:</strong> 4152314408183773</p>
@@ -131,7 +131,7 @@ body{background:var(--brand-bg); color:var(--brand-text);}
 </div>
 
 <footer class="max-w-6xl mx-auto p-6 text-center text-sm text-gray-500">
-  © Queentana Real — Hecho con amor y dedicación.
+  @ Queentana Real — Hecho con amor y dedicación.
 </footer>
 
 <script>
@@ -151,6 +151,7 @@ const PRODUCTS = {
   ]
 };
 
+// Render Sección 1
 function renderProducts(){
   const capGrid = $('#caprichosGrid');
   PRODUCTS.caprichos.forEach(p=>{
@@ -159,70 +160,40 @@ function renderProducts(){
     card.innerHTML = `
       <img src="${p.img}" alt="${p.title}" class="h-40 w-full object-cover rounded-md"/>
       <h5 class="mt-3 font-semibold">${p.title}</h5>
-      <p class="text-sm text-gray-500 mt-1">Desde $${p.basePrice||p.price} MXN</p>
-      <div class="mt-3">
-        <button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Agregar</button>
-        ${p.id==='gelatina'?`<button class="addGel px-3 py-2 rounded-lg glass mt-2" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}">Agregar</button>`:''}
+      <p class="text-sm text-gray-500 mt-1">Desde $${p.basePrice} MXN</p>
+      <div class="mt-3"><button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Agregar</button></div>
+       ${p.id==='gelatina'?`<button class="addGel px-3 py-2 rounded-lg glass mt-2" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}">Agregar</button>`:''}
       </div>
     `;
     capGrid.appendChild(card);
   });
 
+  // Sección 2
   const momGrid = $('#momentoGrid');
   PRODUCTS.momento.forEach(p=>{
-    const desc = p.package? `<p class="text-sm text-gray-500">Paquete de ${p.package}</p>`:'';
-    const flavorSelect = p.flavors? `<select id="flavor_${p.id}" class="border rounded p-1 w-full mt-1">${p.flavors.map(f=>`<option>${f}</option>`).join('')}</select>`:'';
     const card = document.createElement('article');
     card.className='bg-white p-4 rounded-xl shadow-sm';
     card.innerHTML = `
       <img src="${p.img}" alt="${p.title}" class="h-40 w-full object-cover rounded-md"/>
       <h5 class="mt-3 font-semibold">${p.title}</h5>
-      ${desc}
-      ${flavorSelect}
-      <p class="text-sm text-gray-500 mt-1">Desde $${p.price} MXN</p>
-      <div class="mt-3">
-        <button class="addBtn px-3 py-2 rounded-lg glass" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}">Agregar</button>
-      </div>
+      ${p.package?`<div class="text-sm text-gray-500">Viene en paquete de ${p.package}</div>`:''}
+      ${p.flavors?`<select id="flavor_${p.id}" class="mt-2 border rounded p-1 w-full">${p.flavors.map(f=>`<option>${f}</option>`).join('')}</select>`:''}
+      <p class="text-sm text-gray-500 mt-1">$${p.price} MXN</p>
+      <div class="mt-3"><button class="addBtn px-3 py-2 rounded-lg glass" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}">Agregar</button></div>
     `;
     momGrid.appendChild(card);
   });
 }
-
 renderProducts();
 
-// Carrito
-function addToCart(item){ CART.push(item); saveCart(); alert('Agregado al carrito'); }
-function saveCart(){ localStorage.setItem('qr_cart',JSON.stringify(CART)); renderCart(); }
-function renderCart(){
-  $('#cartCount').textContent=CART.length;
-  const container=$('#cartItems'); container.innerHTML='';
-  let total=0;
-  CART.forEach((it,idx)=>{
-    total+=it.qty*it.price;
-    const div=document.createElement('div');
-    div.className='flex justify-between items-start gap-2 p-2 border rounded';
-    div.innerHTML=`<div>
-      <div class='font-semibold'>${it.title}</div>
-      <div class='text-sm text-gray-500'>${it.options&&Object.keys(it.options).length?Object.entries(it.options).map(o=>o[0]+': '+o[1]).join(', '):''}</div>
-      <div class='text-sm text-gray-600 mt-1'>Cantidad: ${it.qty}</div>
-    </div>
-    <div class='text-right'>
-      <div class='font-semibold'>$${it.price*it.qty} MXN</div>
-      <button class='removeItem text-sm text-red-500 mt-2' data-idx='${idx}'>Quitar</button>
-    </div>`;
-    container.appendChild(div);
-  });
-  $('#cartTotal').textContent=`$${total} MXN`;
-  container.querySelectorAll('.removeItem').forEach(b=>b.addEventListener('click',e=>{CART.splice(Number(e.target.dataset.idx),1); saveCart();}));
-}
-
-renderCart();
-
-// Abrir modal producto
+// Modal productos
 document.addEventListener('click', e=>{
   const btn = e.target.closest('.openProductBtn');
   if(btn){
-    const p = PRODUCTS.caprichos.find(x=>x.id===btn.dataset.id);
+    const id = btn.dataset.id;
+    const p = PRODUCTS.caprichos.find(x=>x.id===id);
+    if(!p) return;
+
     if(p.id==='carlota'){
       $('#modalContent').innerHTML=`
         <h3 class="text-xl font-semibold">${p.title}</h3>
@@ -248,31 +219,43 @@ document.addEventListener('click', e=>{
         </div>
       `;
       $('#productModal').classList.remove('hidden');
+
       const toppingsBtns = $('#toppingsContainer').querySelectorAll('.toppingBtn');
       let selected = [];
       function updateTotal(){
         const type = $('#carlotaType').value;
         const qty = Number($('#qtyCarlota').value||1);
         const base = type==='base'?p.basePrice:p.toppingPrice;
-        const extra = selected.length>0?selected.length*5:0;
+        const extra = selected.length>0? selected.length*5 : 0;
         $('#carlotaTotal').textContent=base+extra;
       }
-      $('#carlotaType').addEventListener('change', ()=>{$('#toppingsContainer').classList.toggle('hidden',$('#carlotaType').value!=='topping'); updateTotal();});
+      $('#carlotaType').addEventListener('change', ()=>{
+        const show = $('#carlotaType').value==='topping';
+        $('#toppingsContainer').classList.toggle('hidden',!show);
+        updateTotal();
+      });
       $('#qtyCarlota').addEventListener('input', updateTotal);
       toppingsBtns.forEach(b=>{
         b.addEventListener('click', e=>{
-          const t=e.currentTarget.dataset.t;
-          if(selected.includes(t)){selected=selected.filter(x=>x!==t); e.currentTarget.classList.remove('bg-gray-200');}
-          else{selected.push(t); e.currentTarget.classList.add('bg-gray-200');}
+          const t = e.currentTarget.dataset.t;
+          if(selected.includes(t)){
+            selected = selected.filter(x=>x!==t);
+            e.currentTarget.classList.remove('bg-gray-200');
+          }else{
+            selected.push(t);
+            e.currentTarget.classList.add('bg-gray-200');
+          }
           $('#selectedToppings').textContent=selected.join(', ')||'—';
           updateTotal();
         });
       });
+
       $('#addCarlota').addEventListener('click', ()=>{
-        const type=$('#carlotaType').value;
-        const qty=Number($('#qtyCarlota').value||1);
+        const type = $('#carlotaType').value;
+        const qty = Number($('#qtyCarlota').value||1);
         const base = type==='base'?p.basePrice:p.toppingPrice;
         const extra = selected.length>0?selected.length*5:0;
+        const totalPrice = (base+extra)*qty;
         addToCart({id:'carlota-'+Date.now(), title:'Carlota'+(type==='topping'?' con topping':''), qty, price:base+extra, options:{toppings:selected}});
         closeModal();
       });
@@ -280,15 +263,6 @@ document.addEventListener('click', e=>{
     }
   }
 
-  // Botón agregar gelatina
-  const gelBtn = e.target.closest('.addGel');
-  if(gelBtn){
-    const title=gelBtn.dataset.title;
-    const price=Number(gelBtn.dataset.price);
-    addToCart({id:'gel-'+Date.now(), title, qty:1, price, options:{}});
-  }
-
-  // Botón agregar momento dulce
   const addBtn = e.target.closest('.addBtn');
   if(addBtn){
     const id = addBtn.dataset.id;
@@ -303,31 +277,76 @@ document.addEventListener('click', e=>{
 
 function closeModal(){ $('#productModal').classList.add('hidden'); $('#modalContent').innerHTML=''; }
 
-// Toggle carrito
+// Carrito
+function addToCart(item){ CART.push(item); saveCart(); alert('Agregado al carrito'); }
+function saveCart(){ localStorage.setItem('qr_cart', JSON.stringify(CART)); renderCart(); }
+function renderCart(){
+  $('#cartCount').textContent=CART.length;
+  const container=$('#cartItems'); container.innerHTML='';
+  let total=0;
+  CART.forEach((it,idx)=>{
+    total+=it.qty*it.price;
+    const div=document.createElement('div');
+    div.className='flex justify-between items-start gap-2 p-2 border rounded';
+    div.innerHTML=`<div>
+      <div class='font-semibold'>${it.title}</div>
+      <div class='text-sm text-gray-500'>${it.options&&Object.keys(it.options).length?Object.entries(it.options).map(o=>o[0]+': '+o[1]).join(', '):''}</div>
+      <div class='text-sm text-gray-600 mt-1'>Cantidad: ${it.qty}</div>
+    </div>
+    <div class='text-right'>
+      <div class='font-semibold'>$${it.price*it.qty} MXN</div>
+      <button class='removeItem text-sm text-red-500 mt-2' data-idx='${idx}'>Quitar</button>
+    </div>`;
+    container.appendChild(div);
+  });
+  $('#cartTotal').textContent=`$${total} MXN`;
+  container.querySelectorAll('.removeItem').forEach(b=>b.addEventListener('click',e=>{
+    const i=Number(e.target.dataset.idx); CART.splice(i,1); saveCart();
+  }));
+}
+renderCart();
+
+// Toggle cart
 $('#cartBtn').addEventListener('click',()=>$('#cartPanel').classList.toggle('hidden'));
 $('#closeCart').addEventListener('click',()=>$('#cartPanel').classList.add('hidden'));
 
-// Pago
-$('#checkoutBtn').addEventListener('click',()=>{ if(CART.length===0){alert('Tu carrito está vacío'); return;} $('#paymentModal').classList.remove('hidden'); });
+// Modal pago
+$('#checkoutBtn').addEventListener('click',()=>{ 
+  if(CART.length===0){alert('Tu carrito está vacío'); return;}
+  $('#paymentModal').classList.remove('hidden');
+});
 $('#closePayment').addEventListener('click',()=>$('#paymentModal').classList.add('hidden'));
+
+// Pago efectivo
 $('#payCash').addEventListener('click', ()=>{
   $('#paymentModal').classList.add('hidden');
-  let total=0, summary='';
-  CART.forEach(i=>{total+=i.price*i.qty; summary+=`${i.qty}x ${i.title}\n`;});
-  const folio=Math.floor(Math.random()*9000+1000);
-  const msg=encodeURIComponent(`Hola, quiero pagar en efectivo.\nPedido:\n${summary}Total: $${total} MXN\nFolio: ${folio}`);
+  let total=0;
+  let summary=''; 
+  CART.forEach(i=>{ total+=i.price*i.qty; summary+=`${i.qty}x ${i.title}\n`; });
+  const folio=Math.floor(Math.random()*9000+1000); // 4 dígitos
+  const msg = encodeURIComponent(`👋Hola, quiero pagar en efectivo.\nPedido:\n${summary}Total: $${total} MXN\n📋Folio: ${folio}`);
   window.open(`https://wa.me/6142425718?text=${msg}`, '_blank');
   CART=[]; saveCart();
 });
-$('#payTransfer').addEventListener('click', ()=>{ $('#paymentModal').classList.add('hidden'); $('#transferModal').classList.remove('hidden'); });
+
+// Pago transferencia
+$('#payTransfer').addEventListener('click', ()=>{
+  $('#paymentModal').classList.add('hidden');
+  $('#transferModal').classList.remove('hidden');
+});
+
 $('#closeTransfer').addEventListener('click',()=>$('#transferModal').classList.add('hidden'));
 $('#sendProof').addEventListener('click', ()=>{
-  let total=0, summary='';
-  CART.forEach(i=>{total+=i.price*i.qty; summary+=`${i.qty}x ${i.title}\n`;});
+  let total=0; let summary='';
+  CART.forEach(i=>{ total+=i.price*i.qty; summary+=`${i.qty}x ${i.title}\n`; });
   const folio=Math.floor(Math.random()*9000+1000);
-  const msg=encodeURIComponent(`Hola, envié transferencia.\nPedido:\n${summary}Total: $${total} MXN\nFolio: ${folio}`);
+  const msg=encodeURIComponent(`📌Realiza tu pago por transferencia a:
+BBVA 4152314408183773
+Titular: Tania Jocelin Ontiveros Quintana
+✅Adjunta el comprobante de pago en esta conversación para confirmar tu pedido..\nPedido:\n${summary}Total: $${total} MXN\n📋Folio: ${folio}`);
   window.open(`https://wa.me/6142425718?text=${msg}`, '_blank');
-  $('#transferModal').classList.add('hidden'); CART=[]; saveCart();
+  $('#transferModal').classList.add('hidden');
+  CART=[]; saveCart();
 });
 
 // CTA WhatsApp
@@ -337,4 +356,3 @@ $('#menuBtn').addEventListener('click',()=>{ alert('Menú lateral'); });
 </script>
 </body>
 </html>
-
