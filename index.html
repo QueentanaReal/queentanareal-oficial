@@ -2,94 +2,259 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- ✅ Verificación de Google -->
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="google-site-verification" content="LtZU11gSxX_CxQFu1THqMEnQ7-c-sDDmvfmdXkh2kn4" />
-  <title>Queentana Real - Postres</title>
+  <title>Queentana Real — Tienda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      background-color: #fffafc;
-      color: #3a2b2e;
-      margin: 0;
-      padding: 20px;
+    :root{
+      --brand-bg:#F9F6F0;
+      --brand-text:#1F1F1F;
+      --accent-gold:#C69B4B;
+      --muted:#8b8380;
     }
-    h2 { color: #b71c70; }
-    .card {
-      background: #fff;
-      border-radius: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-bottom: 25px;
-      max-width: 400px;
-    }
-    select, label {
-      display: block;
-      margin: 10px 0;
-      font-size: 15px;
-    }
-    .toppings {
-      margin-left: 15px;
-      display: none;
-    }
-    .precio {
-      font-weight: bold;
-      color: #d81b60;
-      margin-top: 10px;
-    }
+    body{background:var(--brand-bg);color:var(--brand-text);}
+    .glass{backdrop-filter:blur(6px);background:rgba(255,255,255,0.55);}
   </style>
 </head>
-<body>
-  <h2>Menú de Postres - Queentana Real 👑</h2>
-
-  <div class="card">
-    <h3>🍰 Carlota</h3>
-    <label for="tipoCarlota">Selecciona tipo:</label>
-    <select id="tipoCarlota">
-      <option value="normal" data-precio="30">Carlota - $30</option>
-      <option value="topping" data-precio="35">Carlota con topping - $35</option>
-    </select>
-
-    <div class="toppings" id="toppings">
-      <label><input type="checkbox" value="Fresa"> Fresa</label>
-      <label><input type="checkbox" value="Mango"> Mango</label>
-      <label><input type="checkbox" value="Chispas de chocolate"> Chispas de chocolate</label>
-      <label><input type="checkbox" value="Chispas de payaso"> Chispas de payaso</label>
-      <label><input type="checkbox" value="Mazapán"> Mazapán</label>
-      <label><input type="checkbox" value="Nuez"> Nuez</label>
-      <label><input type="checkbox" value="Cacahuate"> Cacahuate</label>
+<body class="min-h-screen font-sans">
+  <!-- HEADER -->
+  <header class="p-4 flex items-center justify-between max-w-6xl mx-auto">
+    <div class="flex items-center gap-3">
+      <img src="LOGO DEFINITIVO.png" alt="Queentana Real" class="w-20 h-20 object-contain"/>
+      <div>
+        <h1 class="text-2xl font-semibold">Queentana <span class="text-sm text-gray-600">Real</span></h1>
+        <p class="text-sm text-gray-500">Repostería artesanal • Elegancia con sazón</p>
+      </div>
     </div>
+    <div class="flex items-center gap-3">
+      <nav class="hidden md:flex gap-3 items-center">
+        <a href="https://www.instagram.com/queentana_real" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/share/v/16iE99qQbR/" target="_blank">Facebook</a>
+        <a href="https://www.tiktok.com/@queentanareal" target="_blank">TikTok</a>
+      </nav>
+      <button id="menuBtn" class="p-2 rounded-md glass md:hidden">☰</button>
+      <button id="cartBtn" class="relative p-2 rounded-md glass">
+        🛒
+        <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-2">0</span>
+      </button>
+    </div>
+  </header>
 
-    <div class="precio" id="precioTotal">Total: $30 MXN</div>
+  <!-- HERO -->
+  <section class="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-6 items-center">
+    <div>
+      <h2 class="text-4xl font-bold leading-tight">Bienvenida a <span style="color:var(--accent-gold)">Queentana Real</span></h2>
+      <p class="mt-3 text-gray-600">Dulces con corazón y estilo. Explora nuestros postres, elige tus toppings y finaliza el pedido por WhatsApp.</p>
+      <div class="mt-6 flex gap-3">
+        <a href="#productos" class="px-4 py-2 rounded-2xl glass">Ver productos</a>
+        <a id="ctaWhats" href="#" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold);color:white">Pedir por WhatsApp</a>
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl p-6 shadow-md">
+      <img src="hero-dessert.jpg" alt="Postres" class="w-full h-56 object-cover rounded-lg"/>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <main id="productos" class="max-w-6xl mx-auto p-6">
+    <h3 class="text-2xl font-semibold mb-4">Nuestros productos</h3>
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </main>
+
+  <!-- CARRITO -->
+  <aside id="cartPanel" class="fixed right-4 bottom-4 w-96 bg-white p-4 rounded-2xl shadow-lg hidden">
+    <h4 class="font-semibold">Tu carrito</h4>
+    <div id="cartItems" class="mt-3 space-y-2 max-h-56 overflow-auto"></div>
+    <div class="mt-3 flex justify-between items-center">
+      <div>
+        <div class="text-sm text-gray-500">Total</div>
+        <div id="cartTotal" class="font-bold text-lg">$0 MXN</div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <button id="checkoutBtn" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold);color:white">Continuar a pagar</button>
+        <button id="closeCart" class="px-3 py-1 rounded-md text-sm text-gray-600">Cerrar</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MODAL PRODUCTO -->
+  <div id="productModal" class="fixed inset-0 flex items-center justify-center bg-black/40 hidden">
+    <div class="bg-white rounded-2xl p-6 w-11/12 max-w-xl">
+      <button id="closeModal" class="text-gray-500">✕</button>
+      <div id="modalContent" class="mt-2"></div>
+    </div>
   </div>
 
+  <!-- MODAL TRANSFERENCIA -->
+  <div id="transferModal" class="fixed inset-0 flex items-center justify-center bg-black/40 hidden">
+    <div class="bg-white rounded-2xl p-6 w-11/12 max-w-lg">
+      <button id="closeTransfer" class="text-gray-500">✕</button>
+      <h3 class="text-xl font-semibold mt-2">Pago por transferencia</h3>
+      <p class="text-sm text-gray-600 mt-2">Realiza tu transferencia con los siguientes datos:</p>
+      <div class="mt-3 p-3 bg-gray-50 rounded text-sm">
+        <p><strong>Banco:</strong> BBVA</p>
+        <p><strong>Cuenta:</strong> 1234567890</p>
+        <p><strong>Clabe:</strong> 002345678901234567</p>
+        <p><strong>Titular:</strong> Tania Jocelin Ontiveros Quintana</p>
+      </div>
+      <form id="transferForm" class="mt-4 space-y-3">
+        <div>
+          <label class="text-sm">Sube tu comprobante:</label>
+          <input type="file" id="transferFile" accept="image/*,.pdf" required class="mt-1 block w-full border rounded p-2"/>
+        </div>
+        <input type="text" id="transferName" placeholder="Tu nombre completo" required class="w-full border rounded p-2"/>
+        <button type="submit" class="px-4 py-2 rounded-2xl w-full" style="background:var(--accent-gold);color:white">Enviar comprobante</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="max-w-6xl mx-auto p-6 text-center text-sm text-gray-500">
+    © Queentana Real — Hecho con amor y dedicación.
+  </footer>
+
   <script>
-    const tipoCarlota = document.getElementById("tipoCarlota");
-    const toppingsDiv = document.getElementById("toppings");
-    const checkboxes = toppingsDiv.querySelectorAll("input[type=checkbox]");
-    const precioTotal = document.getElementById("precioTotal");
-
-    let precioBase = 30;
-
-    tipoCarlota.addEventListener("change", () => {
-      toppingsDiv.style.display = tipoCarlota.value === "topping" ? "block" : "none";
-      precioBase = parseInt(tipoCarlota.selectedOptions[0].dataset.precio);
-      checkboxes.forEach(c => c.checked = false);
-      actualizarPrecio();
-    });
-
-    checkboxes.forEach(chk => {
-      chk.addEventListener("change", actualizarPrecio);
-    });
-
-    function actualizarPrecio() {
-      let precio = precioBase;
-      if (tipoCarlota.value === "topping") {
-        const seleccionados = Array.from(checkboxes).filter(c => c.checked).length;
-        if (seleccionados > 1) precio += (seleccionados - 1) * 5;
+    const PRODUCTS=[
+      {
+        id:'carlota',title:'Carlota',img:'carlota.jpg',
+        variants:[{id:'base',name:'Carlota',price:30},{id:'topping',name:'Carlota con topping',price:35}],
+        toppings:['Fresa','Mango','Nuez','Mazapán','Chispas payaso','Chispas de chocolate','Cacahuate']
       }
-      precioTotal.textContent = `Total: $${precio} MXN`;
+    ];
+
+    const $=s=>document.querySelector(s);
+    const grid=$('#productGrid');
+    grid.innerHTML=`${PRODUCTS.map(p=>`
+      <article class='bg-white p-4 rounded-xl shadow-sm'>
+        <img src="${p.img}" class='h-40 w-full object-cover rounded-md'/>
+        <h5 class='mt-3 font-semibold'>${p.title}</h5>
+        <p class='text-sm text-gray-500 mt-1'>Toca para ver opciones</p>
+        <div class='mt-3 flex justify-between items-center'>
+          <button class='openProductBtn px-3 py-2 rounded-lg glass' data-id='${p.id}'>Ver</button>
+          <div class='text-sm text-gray-700'>$30 - $35 MXN</div>
+        </div>
+      </article>`).join('')}`;
+
+    document.addEventListener('click',e=>{
+      const btn=e.target.closest('.openProductBtn');
+      if(btn) openProduct(btn.dataset.id);
+    });
+
+    const modal=$('#productModal');
+    const modalContent=$('#modalContent');
+
+    function openProduct(id){
+      const p=PRODUCTS.find(x=>x.id===id);
+      if(!p)return;
+
+      modalContent.innerHTML=`
+        <h3 class='text-xl font-semibold'>Carlota Real 🍰</h3>
+        <label class='block mt-3'>Selecciona tipo:</label>
+        <select id='tipoCarlota' class='border rounded p-2 w-full mt-1'>
+          <option value='normal' data-precio='30'>Carlota - $30</option>
+          <option value='topping' data-precio='35'>Carlota con topping - $35</option>
+        </select>
+        <div id='toppingsSection' class='hidden mt-3 border-l-4 border-pink-400 pl-3'>
+          <label class='block mb-1'>Elige tus toppings (puedes varios):</label>
+          ${p.toppings.map(t=>`<label class='block text-sm'><input type='checkbox' value='${t}'> ${t}</label>`).join('')}
+        </div>
+        <div id='totalPrecio' class='mt-3 font-semibold text-pink-600'>Total: $30 MXN</div>
+        <div class='mt-4 flex justify-between items-center'>
+          <label class='text-sm'>Cantidad: <input id='qty' type='number' value='1' min='1' class='w-16 border rounded p-1 ml-2'/></label>
+        </div>
+        <div class='mt-4 flex gap-2'>
+          <button id='addCarlota' class='px-4 py-2 rounded-2xl' style='background:var(--accent-gold);color:white'>Agregar al carrito</button>
+          <button id='cancelAdd' class='px-4 py-2 rounded-2xl glass'>Cancelar</button>
+        </div>
+      `;
+
+      const tipoCarlota=$('#tipoCarlota');
+      const toppingsSection=$('#toppingsSection');
+      const totalPrecio=$('#totalPrecio');
+      const toppingCheckboxes=toppingsSection.querySelectorAll("input[type='checkbox']");
+      const qtyEl=$('#qty');
+      let precioBase=30;
+
+      tipoCarlota.addEventListener('change',()=>{
+        const sel=tipoCarlota.options[tipoCarlota.selectedIndex];
+        precioBase=Number(sel.dataset.precio)||0;
+        if(tipoCarlota.value==='topping') toppingsSection.classList.remove('hidden');
+        else { toppingsSection.classList.add('hidden'); toppingCheckboxes.forEach(cb=>cb.checked=false);}
+        actualizarPrecio();
+      });
+
+      toppingCheckboxes.forEach(cb=>cb.addEventListener('change',actualizarPrecio));
+      qtyEl.addEventListener('input',actualizarPrecio);
+
+      function actualizarPrecio(){
+        let total=precioBase;
+        if(tipoCarlota.value==='topping'){
+          const count=[...toppingCheckboxes].filter(cb=>cb.checked).length;
+          if(count>1) total+=(count-1)*5;
+        }
+        const qty=Number(qtyEl.value||1);
+        totalPrecio.textContent=`Total: $${total*qty} MXN`;
+      }
+
+      $('#addCarlota').addEventListener('click',()=>{
+        const toppingsSel=[...toppingCheckboxes].filter(c=>c.checked).map(c=>c.value);
+        const qty=Number(qtyEl.value||1);
+        const priceBase=precioBase;
+        const totalPer=()=>{
+          let t=priceBase;
+          if(tipoCarlota.value==='topping'&&toppingsSel.length>1) t+=(toppingsSel.length-1)*5;
+          return t;
+        };
+        addToCart({id:'carlota-'+Date.now(),title:`Carlota${tipoCarlota.value==='topping'?' con topping':''}`,qty,price:totalPer(),options:{toppings:toppingsSel.join(', ')}});
+        closeModal();
+      });
+
+      $('#cancelAdd').addEventListener('click',closeModal);
+      actualizarPrecio();
+      modal.classList.remove('hidden');
     }
+
+    function closeModal(){modal.classList.add('hidden');modalContent.innerHTML='';}
+
+    /* --- CARRITO --- */
+    let CART=JSON.parse(localStorage.getItem('qr_cart')||'[]');
+    const saveCart=()=>{localStorage.setItem('qr_cart',JSON.stringify(CART));renderCart();};
+    const addToCart=item=>{CART.push(item);saveCart();alert('Agregado al carrito');};
+    const renderCart=()=>{
+      $('#cartCount').textContent=CART.length;
+      const c=$('#cartItems');c.innerHTML='';
+      let total=0;
+      CART.forEach((it,idx)=>{
+        total+=it.qty*it.price;
+        const div=document.createElement('div');
+        div.className='flex justify-between items-start gap-2 p-2 border rounded';
+        div.innerHTML=`
+          <div><div class='font-semibold'>${it.title}</div>
+          <div class='text-sm text-gray-500'>${it.options?.toppings||''}</div>
+          <div class='text-sm text-gray-600 mt-1'>Cantidad: ${it.qty}</div></div>
+          <div class='text-right'><div class='font-semibold'>$${it.price*it.qty} MXN</div>
+          <button class='removeItem text-sm text-red-500 mt-2' data-idx='${idx}'>Quitar</button></div>`;
+        c.appendChild(div);
+      });
+      $('#cartTotal').textContent=`$${total} MXN`;
+      c.querySelectorAll('.removeItem').forEach(b=>b.addEventListener('click',e=>{
+        CART.splice(Number(e.target.dataset.idx),1);saveCart();
+      }));
+    };
+    renderCart();
+
+    $('#cartBtn').addEventListener('click',()=>$('#cartPanel').classList.toggle('hidden'));
+    $('#closeCart').addEventListener('click',()=>$('#cartPanel').classList.add('hidden'));
+    $('#checkoutBtn').addEventListener('click',()=>{if(!CART.length)return alert('Tu carrito está vacío.');$('#transferModal').classList.remove('hidden');});
+    $('#closeTransfer').addEventListener('click',()=>$('#transferModal').classList.add('hidden'));
+    $('#transferForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      const file=$('#transferFile').files[0],name=$('#transferName').value;
+      if(!file||!name)return alert('Completa todos los campos.');
+      alert(`Gracias ${name} 🙌. Tu comprobante fue recibido.`);
+      $('#transferModal').classList.add('hidden');CART=[];saveCart();
+    });
+    $('#ctaWhats').addEventListener('click',e=>{e.preventDefault();$('#checkoutBtn').click();});
   </script>
 </body>
 </html>
