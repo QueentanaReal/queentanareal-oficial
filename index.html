@@ -9,9 +9,9 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 :root{
-  --brand-bg:#F9F6F0;
+  --brand-bg: #F9F6F0;
   --brand-text:#1F1F1F;
-  --accent-gold:#C69B4B;
+  --accent-gold: #C69B4B;
   --muted:#8b8380;
 }
 body{background:var(--brand-bg); color:var(--brand-text);}
@@ -47,7 +47,7 @@ body{background:var(--brand-bg); color:var(--brand-text);}
 <section class="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-6 items-center">
   <div>
     <h2 class="text-4xl font-bold leading-tight">Bienvenida a <span style="color:var(--accent-gold)">Queentana Real</span></h2>
-    <p class="mt-3 text-gray-600">Dulces con corazón y estilo. Explora nuestros postres y finaliza tu pedido por WhatsApp o transferencia.</p>
+    <p class="mt-3 text-gray-600">Dulces con corazón y estilo. Explora nuestros postres y finaliza el pedido por WhatsApp o transferencia.</p>
     <div class="mt-6 flex gap-3">
       <a href="#productos" class="px-4 py-2 rounded-2xl glass">Ver productos</a>
       <a id="ctaWhats" href="#" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold); color:white">Pedir ahora</a>
@@ -61,17 +61,19 @@ body{background:var(--brand-bg); color:var(--brand-text);}
 <!-- Productos -->
 <main id="productos" class="max-w-6xl mx-auto p-6">
 
-  <!-- Sección 1 -->
+  <!-- Sección 1: Caprichos Helados -->
   <h3 class="text-2xl font-semibold mb-4">Caprichos Helados</h3>
   <div id="caprichosGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
-  <!-- Sección 2 -->
+  <!-- Sección 2: Momento Dulce -->
   <h3 class="text-2xl font-semibold mb-4 mt-10">Momento Dulce</h3>
   <div id="momentoGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
-  <!-- Sección 3 -->
+  <!-- Sección 3: Accesorios y más -->
   <h3 class="text-2xl font-semibold mb-4 mt-10">Accesorios y más</h3>
-  <div class="p-6 bg-gray-100 rounded-xl text-center text-gray-500">Próximamente...</div>
+  <div class="p-6 bg-gray-100 rounded-xl text-center text-gray-500">
+    Próximamente...
+  </div>
 
 </main>
 
@@ -91,7 +93,15 @@ body{background:var(--brand-bg); color:var(--brand-text);}
   </div>
 </aside>
 
-<!-- Modal pago -->
+<!-- Modal de producto -->
+<div id="productModal" class="fixed inset-0 flex items-center justify-center bg-black/40 hidden">
+  <div class="bg-white rounded-2xl p-6 w-11/12 max-w-xl">
+    <button id="closeModal" class="text-gray-500">✕</button>
+    <div id="modalContent" class="mt-2"></div>
+  </div>
+</div>
+
+<!-- Modal de pago -->
 <div id="paymentModal" class="fixed inset-0 flex items-center justify-center bg-black/40 hidden">
   <div class="bg-white rounded-2xl p-6 w-11/12 max-w-lg">
     <button id="closePayment" class="text-gray-500">✕</button>
@@ -120,191 +130,224 @@ body{background:var(--brand-bg); color:var(--brand-text);}
   </div>
 </div>
 
-<!-- Modal productos -->
-<div id="productModal" class="fixed inset-0 flex items-center justify-center bg-black/40 hidden">
-  <div class="bg-white rounded-2xl p-6 w-11/12 max-w-xl">
-    <button id="closeModal" class="text-gray-500">✕</button>
-    <div id="modalContent" class="mt-2"></div>
-  </div>
-</div>
-
 <footer class="max-w-6xl mx-auto p-6 text-center text-sm text-gray-500">
   © Queentana Real — Hecho con amor y dedicación.
 </footer>
 
 <script>
-const $=s=>document.querySelector(s);
-
+const $ = s => document.querySelector(s);
 let CART = JSON.parse(localStorage.getItem('qr_cart')||'[]');
-function saveCart(){ localStorage.setItem('qr_cart',JSON.stringify(CART)); renderCart(); }
-function addToCart(item){ CART.push(item); saveCart(); alert('Agregado al carrito'); }
-function removeItem(i){ CART.splice(i,1); saveCart(); }
-function renderCart(){
-  $('#cartCount').textContent=CART.length;
-  const c=$('#cartItems'); c.innerHTML=''; let total=0;
-  CART.forEach((it,i)=>{
-    total+=it.price*it.qty;
-    c.innerHTML+=`<div class="flex justify-between items-start gap-2 p-2 border rounded">
-      <div><div class='font-semibold'>${it.title}</div><div class='text-sm'>Cant: ${it.qty}</div></div>
-      <div><div>$${it.price*it.qty} MXN</div><button onclick="removeItem(${i})" class='text-sm text-red-500'>Quitar</button></div>
-    </div>`;
-  });
-  $('#cartTotal').textContent=`$${total} MXN`;
-}
-renderCart();
 
-// Datos productos
 const PRODUCTS = {
   caprichos:[
-    {id:'carlota', title:'Carlota', img:'carlota.jpg', price:30, toppings:['Fresa','Mango','Nuez','Mazapan','Chispas','Chocolate','Cacahuate']},
-    {id:'gelatina', title:'Gelatina de Mosaico', img:'gelatina.jpg', price:25}
+    {id:'carlota', title:'Carlota', img:'carlota.jpg', basePrice:30, toppingPrice:35, toppings:['Fresa','Mango','Nuez','Mazapan','Chispas','Chocolate','Cacahuate']},
+    {id:'gelatina', title:'Gelatina de Mosaico', img:'gelatina.jpg', price:45}
   ],
   momento:[
     {id:'cupcake', title:'Cupcake', img:'cupcake.jpg', price:13},
     {id:'galleta', title:'Galleta', img:'galleta.jpg', price:12},
-    {id:'empanada', title:'Empanada', img:'empanada.jpg', price:16, flavors:['Fresa','Manzana']},
-    {id:'macaron', title:'Macaron', img:'macaron.jpg', price:14}
+    {id:'empanada', title:'Empanada', img:'empanada.jpg', price:16, flavors:['Fresa','Manzana'], package:3},
+    {id:'macaron', title:'Macaron', img:'macaron.jpg', price:14, package:6}
   ]
 };
 
 // Render Sección 1
-const capGrid=$('#caprichosGrid');
-PRODUCTS.caprichos.forEach(p=>{
-  const card=document.createElement('article');
-  card.className='bg-white p-4 rounded-xl shadow-sm';
-  card.innerHTML=`<img src="${p.img}" alt="${p.title}" class="h-40 w-full object-cover rounded-md"/>
-    <h5 class="mt-3 font-semibold">${p.title}</h5>
-    <p class="text-sm text-gray-500 mt-1">Precio base: $${p.price} MXN</p>
-    <div class="mt-3"><button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Ver</button></div>`;
-  capGrid.appendChild(card);
-});
+function renderProducts(){
+  const capGrid = $('#caprichosGrid');
+  PRODUCTS.caprichos.forEach(p=>{
+    const card = document.createElement('article');
+    card.className='bg-white p-4 rounded-xl shadow-sm';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.title}" class="h-40 w-full object-cover rounded-md"/>
+      <h5 class="mt-3 font-semibold">${p.title}</h5>
+      <p class="text-sm text-gray-500 mt-1">Desde $${p.basePrice} MXN</p>
+      <div class="mt-3"><button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Ver</button></div>
+    `;
+    capGrid.appendChild(card);
+  });
 
-// Render Sección 2
-const momGrid=$('#momentoGrid');
-PRODUCTS.momento.forEach(p=>{
-  const card=document.createElement('article');
-  card.className='bg-white p-4 rounded-xl shadow-sm';
-  let extra='';
-  if(p.flavors) extra=`<select class="flavorSelect mt-2 w-full border rounded p-1">${p.flavors.map(f=>`<option>${f}</option>`).join('')}</select>`;
-  card.innerHTML=`<img src="${p.img}" alt="${p.title}" class="h-40 w-full object-cover rounded-md"/>
-    <h5 class="mt-3 font-semibold">${p.title}</h5>
-    <p class="text-sm text-gray-500 mt-1">$${p.price} MXN</p>
-    <div class="mt-3 flex flex-col gap-2">
-      ${extra}
-      <input type="number" class="w-16 border rounded p-1 qtyInput" value="1" min="1"/>
-      <button class="addMomBtn px-4 py-2 rounded-2xl" style="background:var(--accent-gold); color:white">Agregar</button>
-    </div>`;
-  momGrid.appendChild(card);
-});
+  // Sección 2
+  const momGrid = $('#momentoGrid');
+  PRODUCTS.momento.forEach(p=>{
+    const card = document.createElement('article');
+    card.className='bg-white p-4 rounded-xl shadow-sm';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.title}" class="h-40 w-full object-cover rounded-md"/>
+      <h5 class="mt-3 font-semibold">${p.title}</h5>
+      ${p.package?`<div class="text-sm text-gray-500">Viene en paquete de ${p.package}</div>`:''}
+      ${p.flavors?`<select id="flavor_${p.id}" class="mt-2 border rounded p-1 w-full">${p.flavors.map(f=>`<option>${f}</option>`).join('')}</select>`:''}
+      <p class="text-sm text-gray-500 mt-1">$${p.price} MXN</p>
+      <div class="mt-3"><button class="addBtn px-3 py-2 rounded-lg glass" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}">Agregar</button></div>
+    `;
+    momGrid.appendChild(card);
+  });
+}
+renderProducts();
 
-// Modal productos (Carlota con toppings múltiples)
-document.addEventListener('click',e=>{
-  const btn=e.target.closest('.openProductBtn');
-  if(!btn) return;
-  const p=PRODUCTS.caprichos.find(x=>x.id===btn.dataset.id);
-  if(!p) return;
-  if(p.id==='carlota'){
-    const content=$('#modalContent');
-    content.innerHTML=`<h3 class="text-xl font-semibold">${p.title}</h3>
-      <p class="text-sm text-gray-500">Selecciona toppings (cada uno $5 extra)</p>
-      <div class="mt-2 flex flex-wrap gap-2">
-        ${p.toppings.map(t=>`<button class="toppingBtn px-3 py-1 rounded-full glass" data-t="${t}">${t}</button>`).join('')}
-      </div>
-      <div class="mt-2 text-sm">Toppings seleccionados: <span id="selectedToppings">—</span></div>
-      <div class="mt-2 flex gap-3 items-center">
-        <label>Cantidad:</label><input id="qtyCarlota" type="number" value="1" min="1" class="w-16 border rounded p-1"/>
-        <div class="ml-auto font-bold" id="totalCarlota">$${p.price} MXN</div>
-      </div>
-      <button id="addCarlotaCart" class="mt-3 px-4 py-2 rounded-2xl" style="background:var(--accent-gold); color:white">Agregar al carrito</button>`;
-    $('#productModal').classList.remove('hidden');
+// Modal productos
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('.openProductBtn');
+  if(btn){
+    const id = btn.dataset.id;
+    const p = PRODUCTS.caprichos.find(x=>x.id===id);
+    if(!p) return;
 
-    const toppingBtns=content.querySelectorAll('.toppingBtn');
-    let selected=[];
-    const totalEl=$('#totalCarlota');
-    const qtyEl=$('#qtyCarlota');
-    function updateTotal(){
-      const total=p.price+selected.length*5;
-      totalEl.textContent=`$${total*Number(qtyEl.value)} MXN`;
-    }
-    toppingBtns.forEach(b=>{
-      b.addEventListener('click',()=>{
-        const t=b.dataset.t;
-        if(selected.includes(t)){
-          selected=selected.filter(x=>x!==t);
-          b.classList.remove('bg-gray-200');
-        }else{
-          selected.push(t);
-          b.classList.add('bg-gray-200');
-        }
-        $('#selectedToppings').textContent=selected.join(', ')||'—';
+    if(p.id==='carlota'){
+      $('#modalContent').innerHTML=`
+        <h3 class="text-xl font-semibold">${p.title}</h3>
+        <label class="mt-2 block">Selecciona tipo:</label>
+        <select id="carlotaType" class="border rounded p-1 w-full mt-1">
+          <option value="base">Carlota sencilla - $${p.basePrice}</option>
+          <option value="topping">Carlota con topping - $${p.toppingPrice}</option>
+        </select>
+        <div id="toppingsContainer" class="mt-3 hidden">
+          <label class="block text-sm text-gray-600">Selecciona toppings ($5 cada extra)</label>
+          <div class="mt-2 flex gap-2 flex-wrap">
+            ${p.toppings.map(t=>`<button type="button" class="toppingBtn px-3 py-1 rounded-full glass" data-t="${t}">${t}</button>`).join('')}
+          </div>
+          <div class="mt-2 text-sm">Toppings seleccionados: <span id="selectedToppings">—</span></div>
+        </div>
+        <div class="mt-3 flex justify-between items-center">
+          <label>Cantidad: <input type="number" id="qtyCarlota" value="1" min="1" class="border rounded p-1 w-16 ml-2"/></label>
+          <div class="text-lg font-bold">Total: <span id="carlotaTotal">${p.basePrice}</span> MXN</div>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <button id="addCarlota" class="px-4 py-2 rounded-2xl" style="background:var(--accent-gold); color:white">Agregar al carrito</button>
+          <button id="cancelAdd" class="px-4 py-2 rounded-2xl glass">Cancelar</button>
+        </div>
+      `;
+      $('#productModal').classList.remove('hidden');
+
+      const toppingsBtns = $('#toppingsContainer').querySelectorAll('.toppingBtn');
+      let selected = [];
+      function updateTotal(){
+        const type = $('#carlotaType').value;
+        const qty = Number($('#qtyCarlota').value||1);
+        const base = type==='base'?p.basePrice:p.toppingPrice;
+        const extra = selected.length>0? selected.length*5 : 0;
+        $('#carlotaTotal').textContent=base+extra;
+      }
+      $('#carlotaType').addEventListener('change', ()=>{
+        const show = $('#carlotaType').value==='topping';
+        $('#toppingsContainer').classList.toggle('hidden',!show);
         updateTotal();
       });
-    });
-    qtyEl.addEventListener('input',updateTotal);
+      $('#qtyCarlota').addEventListener('input', updateTotal);
+      toppingsBtns.forEach(b=>{
+        b.addEventListener('click', e=>{
+          const t = e.currentTarget.dataset.t;
+          if(selected.includes(t)){
+            selected = selected.filter(x=>x!==t);
+            e.currentTarget.classList.remove('bg-gray-200');
+          }else{
+            selected.push(t);
+            e.currentTarget.classList.add('bg-gray-200');
+          }
+          $('#selectedToppings').textContent=selected.join(', ')||'—';
+          updateTotal();
+        });
+      });
 
-    $('#addCarlotaCart').addEventListener('click',()=>{
-      const qty=Number(qtyEl.value);
-      const price=p.price+selected.length*5;
-      addToCart({id:'carlota-'+Date.now(), productId:'carlota', title:`Carlota (${selected.join(', ')||'sin topping'})`, qty, price});
-      $('#productModal').classList.add('hidden');
-    });
+      $('#addCarlota').addEventListener('click', ()=>{
+        const type = $('#carlotaType').value;
+        const qty = Number($('#qtyCarlota').value||1);
+        const base = type==='base'?p.basePrice:p.toppingPrice;
+        const extra = selected.length>0?selected.length*5:0;
+        const totalPrice = (base+extra)*qty;
+        addToCart({id:'carlota-'+Date.now(), title:'Carlota'+(type==='topping'?' con topping':''), qty, price:base+extra, options:{toppings:selected}});
+        closeModal();
+      });
+      $('#cancelAdd').addEventListener('click', closeModal);
+    }
+  }
+
+  const addBtn = e.target.closest('.addBtn');
+  if(addBtn){
+    const id = addBtn.dataset.id;
+    const title = addBtn.dataset.title;
+    const price = Number(addBtn.dataset.price);
+    let options = {};
+    const flavorSelect = document.querySelector(`#flavor_${id}`);
+    if(flavorSelect) options.flavor=flavorSelect.value;
+    addToCart({id:id+'-'+Date.now(), title, qty:1, price, options});
   }
 });
 
-// Cerrar modal productos
-$('#closeModal').addEventListener('click',()=>$('#productModal').classList.add('hidden'));
-$('#productModal').addEventListener('click',ev=>{if(ev.target==$('#productModal'))$('#productModal').classList.add('hidden');});
-
-// Añadir productos Sección 2
-document.addEventListener('click',e=>{
-  const btn=e.target.closest('.addMomBtn');
-  if(!btn) return;
-  const card=btn.closest('article');
-  const title=card.querySelector('h5').textContent;
-  const price=Number(card.querySelector('p').textContent.replace('$',''));
-  const qty=Number(card.querySelector('.qtyInput').value||1);
-  let options={};
-  const flavorEl=card.querySelector('.flavorSelect');
-  if(flavorEl) options.flavor=flavorEl.value;
-  addToCart({id:title+'-'+Date.now(), productId:title, title, qty, price, options});
-});
+function closeModal(){ $('#productModal').classList.add('hidden'); $('#modalContent').innerHTML=''; }
 
 // Carrito
+function addToCart(item){ CART.push(item); saveCart(); alert('Agregado al carrito'); }
+function saveCart(){ localStorage.setItem('qr_cart', JSON.stringify(CART)); renderCart(); }
+function renderCart(){
+  $('#cartCount').textContent=CART.length;
+  const container=$('#cartItems'); container.innerHTML='';
+  let total=0;
+  CART.forEach((it,idx)=>{
+    total+=it.qty*it.price;
+    const div=document.createElement('div');
+    div.className='flex justify-between items-start gap-2 p-2 border rounded';
+    div.innerHTML=`<div>
+      <div class='font-semibold'>${it.title}</div>
+      <div class='text-sm text-gray-500'>${it.options&&Object.keys(it.options).length?Object.entries(it.options).map(o=>o[0]+': '+o[1]).join(', '):''}</div>
+      <div class='text-sm text-gray-600 mt-1'>Cantidad: ${it.qty}</div>
+    </div>
+    <div class='text-right'>
+      <div class='font-semibold'>$${it.price*it.qty} MXN</div>
+      <button class='removeItem text-sm text-red-500 mt-2' data-idx='${idx}'>Quitar</button>
+    </div>`;
+    container.appendChild(div);
+  });
+  $('#cartTotal').textContent=`$${total} MXN`;
+  container.querySelectorAll('.removeItem').forEach(b=>b.addEventListener('click',e=>{
+    const i=Number(e.target.dataset.idx); CART.splice(i,1); saveCart();
+  }));
+}
+renderCart();
+
+// Toggle cart
 $('#cartBtn').addEventListener('click',()=>$('#cartPanel').classList.toggle('hidden'));
 $('#closeCart').addEventListener('click',()=>$('#cartPanel').classList.add('hidden'));
 
-// Pago
-$('#checkoutBtn').addEventListener('click',()=>{if(CART.length===0){alert('Carrito vacío');return;} $('#paymentModal').classList.remove('hidden');});
+// Modal pago
+$('#checkoutBtn').addEventListener('click',()=>{ 
+  if(CART.length===0){alert('Tu carrito está vacío'); return;}
+  $('#paymentModal').classList.remove('hidden');
+});
 $('#closePayment').addEventListener('click',()=>$('#paymentModal').classList.add('hidden'));
 
 // Pago efectivo
-$('#payCash').addEventListener('click',()=>{
-  const folio=Math.floor(Math.random()*9000)+1000;
-  const mensaje=`Hola, quiero pagar en efectivo. Pedido: ${CART.map(p=>p.title+' x'+p.qty).join(', ')}. Folio: ${folio}`;
-  window.open(`https://wa.me/6142425718?text=${encodeURIComponent(mensaje)}`, '_blank');
+$('#payCash').addEventListener('click', ()=>{
   $('#paymentModal').classList.add('hidden');
+  let total=0;
+  let summary=''; 
+  CART.forEach(i=>{ total+=i.price*i.qty; summary+=`${i.qty}x ${i.title}\n`; });
+  const folio=Math.floor(Math.random()*9000+1000); // 4 dígitos
+  const msg = encodeURIComponent(`Hola, quiero pagar en efectivo.\nPedido:\n${summary}Total: $${total} MXN\nFolio: ${folio}`);
+  window.open(`https://wa.me/6142425718?text=${msg}`, '_blank');
   CART=[]; saveCart();
 });
 
 // Pago transferencia
-$('#payTransfer').addEventListener('click',()=>{
+$('#payTransfer').addEventListener('click', ()=>{
   $('#paymentModal').classList.add('hidden');
   $('#transferModal').classList.remove('hidden');
 });
 
 $('#closeTransfer').addEventListener('click',()=>$('#transferModal').classList.add('hidden'));
-
-$('#sendProof').addEventListener('click',()=>{
-  const folio=Math.floor(Math.random()*9000)+1000;
-  const mensaje=`Hola, quiero pagar por transferencia. Pedido: ${CART.map(p=>p.title+' x'+p.qty).join(', ')}. Folio: ${folio}`;
-  window.open(`https://wa.me/6142425718?text=${encodeURIComponent(mensaje)}`, '_blank');
+$('#sendProof').addEventListener('click', ()=>{
+  let total=0; let summary='';
+  CART.forEach(i=>{ total+=i.price*i.qty; summary+=`${i.qty}x ${i.title}\n`; });
+  const folio=Math.floor(Math.random()*9000+1000);
+  const msg=encodeURIComponent(`Hola, envié transferencia.\nPedido:\n${summary}Total: $${total} MXN\nFolio: ${folio}`);
+  window.open(`https://wa.me/6142425718?text=${msg}`, '_blank');
   $('#transferModal').classList.add('hidden');
   CART=[]; saveCart();
 });
 
 // CTA WhatsApp
-$('#ctaWhats').addEventListener('click',e=>{ e.preventDefault(); $('#checkoutBtn').click(); });
-</script>
+$('#ctaWhats').addEventListener('click',(e)=>{ e.preventDefault(); $('#checkoutBtn').click(); });
+$('#menuBtn').addEventListener('click',()=>{ alert('Menú lateral'); });
 
+</script>
 </body>
 </html>
