@@ -8,84 +8,49 @@
   <title>Queentana Real - Postres</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #fff8f6;
-      color: #3a2c29;
+      font-family: "Poppins", sans-serif;
+      background-color: #fffafc;
+      color: #3a2b2e;
       margin: 0;
-      padding: 0;
+      padding: 20px;
     }
-
-    h1 {
-      text-align: center;
-      margin-top: 30px;
-      color: #b76e79;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 30px auto;
+    h2 { color: #b71c70; }
+    .card {
       background: #fff;
       border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 25px;
+      max-width: 400px;
     }
-
-    label {
-      font-weight: 600;
+    select, label {
       display: block;
-      margin: 15px 0 8px;
+      margin: 10px 0;
+      font-size: 15px;
     }
-
-    select, input[type="checkbox"] {
-      margin-right: 10px;
-    }
-
     .toppings {
-      margin-top: 10px;
-      padding-left: 10px;
+      margin-left: 15px;
       display: none;
-      border-left: 3px solid #b76e79;
     }
-
-    .total {
-      margin-top: 15px;
+    .precio {
       font-weight: bold;
-      font-size: 1.1em;
-      color: #b76e79;
-    }
-
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background-color: #b76e79;
-      border: none;
-      color: white;
-      font-size: 1em;
-      border-radius: 8px;
-      margin-top: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background-color: #9e5f6b;
+      color: #d81b60;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
+  <h2>Menú de Postres - Queentana Real 👑</h2>
 
-  <h1>🍰 Carlota Real</h1>
-  <div class="container">
-    <label for="tipoCarlota">Selecciona tu Carlota:</label>
+  <div class="card">
+    <h3>🍰 Carlota</h3>
+    <label for="tipoCarlota">Selecciona tipo:</label>
     <select id="tipoCarlota">
-      <option value="">-- Selecciona una opción --</option>
       <option value="normal" data-precio="30">Carlota - $30</option>
       <option value="topping" data-precio="35">Carlota con topping - $35</option>
     </select>
 
-    <div class="toppings" id="toppingsSection">
-      <label>Elige tus toppings (puedes seleccionar varios):</label>
+    <div class="toppings" id="toppings">
       <label><input type="checkbox" value="Fresa"> Fresa</label>
       <label><input type="checkbox" value="Mango"> Mango</label>
       <label><input type="checkbox" value="Chispas de chocolate"> Chispas de chocolate</label>
@@ -95,50 +60,36 @@
       <label><input type="checkbox" value="Cacahuate"> Cacahuate</label>
     </div>
 
-    <div class="total" id="totalPrecio">Total: $0 MXN</div>
-
-    <button class="btn">Agregar al carrito</button>
+    <div class="precio" id="precioTotal">Total: $30 MXN</div>
   </div>
 
   <script>
     const tipoCarlota = document.getElementById("tipoCarlota");
-    const toppingsSection = document.getElementById("toppingsSection");
-    const totalPrecio = document.getElementById("totalPrecio");
-    const toppingCheckboxes = toppingsSection.querySelectorAll("input[type='checkbox']");
+    const toppingsDiv = document.getElementById("toppings");
+    const checkboxes = toppingsDiv.querySelectorAll("input[type=checkbox]");
+    const precioTotal = document.getElementById("precioTotal");
 
-    let precioBase = 0;
-
-    function actualizarPrecio() {
-      let total = precioBase;
-
-      if (tipoCarlota.value === "topping") {
-        const toppingsSeleccionados = Array.from(toppingCheckboxes).filter(cb => cb.checked).length;
-        if (toppingsSeleccionados > 1) {
-          total += (toppingsSeleccionados - 1) * 5;
-        }
-      }
-
-      totalPrecio.textContent = `Total: $${total} MXN`;
-    }
+    let precioBase = 30;
 
     tipoCarlota.addEventListener("change", () => {
-      const opcionSeleccionada = tipoCarlota.options[tipoCarlota.selectedIndex];
-      precioBase = Number(opcionSeleccionada.dataset.precio) || 0;
-
-      if (tipoCarlota.value === "topping") {
-        toppingsSection.style.display = "block";
-      } else {
-        toppingsSection.style.display = "none";
-        toppingCheckboxes.forEach(cb => cb.checked = false);
-      }
-
+      toppingsDiv.style.display = tipoCarlota.value === "topping" ? "block" : "none";
+      precioBase = parseInt(tipoCarlota.selectedOptions[0].dataset.precio);
+      checkboxes.forEach(c => c.checked = false);
       actualizarPrecio();
     });
 
-    toppingCheckboxes.forEach(cb => {
-      cb.addEventListener("change", actualizarPrecio);
+    checkboxes.forEach(chk => {
+      chk.addEventListener("change", actualizarPrecio);
     });
-  </script>
 
+    function actualizarPrecio() {
+      let precio = precioBase;
+      if (tipoCarlota.value === "topping") {
+        const seleccionados = Array.from(checkboxes).filter(c => c.checked).length;
+        if (seleccionados > 1) precio += (seleccionados - 1) * 5;
+      }
+      precioTotal.textContent = `Total: $${precio} MXN`;
+    }
+  </script>
 </body>
 </html>
