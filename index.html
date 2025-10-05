@@ -118,7 +118,7 @@ body{background:var(--brand-bg); color:var(--brand-text);}
   <div class="bg-white rounded-2xl p-6 w-11/12 max-w-lg">
     <button id="closeTransfer" class="text-gray-500">✕</button>
     <h3 class="text-xl font-semibold mt-2">Pago por transferencia</h3>
-    <p class="text-sm text-gray-600 mt-2">Realiza tu transferencia con los siguientes datos:</p>
+    <p class="text-sm text-gray-600 mt-2">📌 Realiza tu transferencia con los siguientes datos:</p>
     <div class="mt-3 p-3 bg-gray-50 rounded text-sm">
       <p><strong>Banco:</strong> BBVA</p>
       <p><strong>Cuenta:</strong> 4152314408183773</p>
@@ -131,7 +131,7 @@ body{background:var(--brand-bg); color:var(--brand-text);}
 </div>
 
 <footer class="max-w-6xl mx-auto p-6 text-center text-sm text-gray-500">
-  © Queentana Real — Hecho con amor y dedicación.
+  @ Queentana Real — Hecho con amor y dedicación.
 </footer>
 
 <script>
@@ -322,7 +322,7 @@ $('#payCash').addEventListener('click', ()=>{
   let summary=''; 
   CART.forEach(i=>{ total+=i.price*i.qty; summary+=`${i.qty}x ${i.title}\n`; });
   const folio=Math.floor(Math.random()*9000+1000); // 4 dígitos
-  const msg = encodeURIComponent(`Hola, quiero pagar en efectivo.\nPedido:\n${summary}Total: $${total} MXN\nFolio: ${folio}`);
+  const msg = encodeURIComponent(`Hola, quiero pagar en efectivo.\nPedido:\n${summary}Total: $${total} MXN\n📋Folio: ${folio}`);
   window.open(`https://wa.me/6142425718?text=${msg}`, '_blank');
   CART=[]; saveCart();
 });
@@ -338,7 +338,7 @@ $('#sendProof').addEventListener('click', ()=>{
   let total=0; let summary='';
   CART.forEach(i=>{ total+=i.price*i.qty; summary+=`${i.qty}x ${i.title}\n`; });
   const folio=Math.floor(Math.random()*9000+1000);
-  const msg=encodeURIComponent(`Hola, envié transferencia.\nPedido:\n${summary}Total: $${total} MXN\nFolio: ${folio}`);
+  const msg=encodeURIComponent(`✅Adjunta el comprobante de pago en esta conversación para confirmar tu pedido..\nPedido:\n${summary}Total: $${total} MXN\nFolio: ${folio}`);
   window.open(`https://wa.me/6142425718?text=${msg}`, '_blank');
   $('#transferModal').classList.add('hidden');
   CART=[]; saveCart();
@@ -351,3 +351,4 @@ $('#menuBtn').addEventListener('click',()=>{ alert('Menú lateral'); });
 </script>
 </body>
 </html>
+
