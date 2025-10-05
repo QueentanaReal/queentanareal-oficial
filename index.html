@@ -322,7 +322,7 @@ $('#payCash').addEventListener('click', ()=>{
   let summary=''; 
   CART.forEach(i=>{ total+=i.price*i.qty; summary+=`${i.qty}x ${i.title}\n`; });
   const folio=Math.floor(Math.random()*9000+1000); // 4 dígitos
-  const msg = encodeURIComponent(`Hola, quiero pagar en efectivo.\nPedido:\n${summary}Total: $${total} MXN\n📋Folio: ${folio}`);
+  const msg = encodeURIComponent(`👋Hola, quiero pagar en efectivo.\nPedido:\n${summary}Total: $${total} MXN\n📋Folio: ${folio}`);
   window.open(`https://wa.me/6142425718?text=${msg}`, '_blank');
   CART=[]; saveCart();
 });
@@ -338,7 +338,7 @@ $('#sendProof').addEventListener('click', ()=>{
   let total=0; let summary='';
   CART.forEach(i=>{ total+=i.price*i.qty; summary+=`${i.qty}x ${i.title}\n`; });
   const folio=Math.floor(Math.random()*9000+1000);
-  const msg=encodeURIComponent(`✅Adjunta el comprobante de pago en esta conversación para confirmar tu pedido..\nPedido:\n${summary}Total: $${total} MXN\nFolio: ${folio}`);
+  const msg=encodeURIComponent(`✅Adjunta el comprobante de pago en esta conversación para confirmar tu pedido..\nPedido:\n${summary}Total: $${total} MXN\n📋Folio: ${folio}`);
   window.open(`https://wa.me/6142425718?text=${msg}`, '_blank');
   $('#transferModal').classList.add('hidden');
   CART=[]; saveCart();
@@ -351,4 +351,5 @@ $('#menuBtn').addEventListener('click',()=>{ alert('Menú lateral'); });
 </script>
 </body>
 </html>
+
 
