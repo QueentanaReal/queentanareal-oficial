@@ -161,7 +161,7 @@ function renderProducts(){
       <img src="${p.img}" alt="${p.title}" class="h-40 w-full object-cover rounded-md"/>
       <h5 class="mt-3 font-semibold">${p.title}</h5>
       <p class="text-sm text-gray-500 mt-1">Desde $${p.basePrice} MXN</p>
-      <div class="mt-3"><button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Ver</button></div>
+      <div class="mt-3"><button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Agregar</button></div>
     `;
     capGrid.appendChild(card);
   });
@@ -354,3 +354,4 @@ $('#menuBtn').addEventListener('click',()=>{ alert('Menú lateral'); });
 </script>
 </body>
 </html>
+
