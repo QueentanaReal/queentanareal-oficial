@@ -162,8 +162,6 @@ function renderProducts(){
       <h5 class="mt-3 font-semibold">${p.title}</h5>
       <p class="text-sm text-gray-500 mt-1">Desde $${p.basePrice} MXN</p>
       <div class="mt-3"><button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Agregar</button></div>
-       ${p.id==='gelatina'?`<button class="addGel px-3 py-2 rounded-lg glass mt-2" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}">Agregar</button>`:''}
-      </div>
     `;
     capGrid.appendChild(card);
   });
