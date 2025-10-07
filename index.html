@@ -159,7 +159,7 @@
           <img src="${p.img}" alt="${p.title}" class="h-40 w-full object-cover rounded-md"/>
           <h5 class="mt-3 font-semibold">${p.title}</h5>
           <p class="text-sm text-gray-500 mt-1">Precio desde $${p.price} MXN</p>
-          <div class="mt-3"><button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Agregar</button></div>
+          <div class="mt-3"><button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Ver</button></div>
         `;
         capGrid.appendChild(card);
       });
@@ -175,7 +175,7 @@
           <h5 class="mt-3 font-semibold">${p.title}</h5>
           ${desc}
           <p class="text-sm text-gray-500 mt-1">$${p.price} MXN</p>
-          <div class="mt-3"><button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Agregar</button></div>
+          <div class="mt-3"><button class="openProductBtn px-3 py-2 rounded-lg glass" data-id="${p.id}">Ver</button></div>
         `;
         momGrid.appendChild(card);
       });
@@ -344,21 +344,41 @@
       $('#paymentModal').classList.remove('hidden');
     });
     $('#closePayment').addEventListener('click',()=>$('#paymentModal').classList.add('hidden'));
+
+    // --- FIX: generar mensaje legible para WhatsApp (sin JSON.stringify) ---
     $('#payCash').addEventListener('click',()=>{
-      const folio=Math.floor(Math.random()*9000+1000);
-      const msg=encodeURIComponent('Hola, mi pedido es: '+JSON.stringify(CART)+' Folio: '+folio);
+      const folio = Math.floor(Math.random()*9000+1000); // 4 dígitos
+      let total = 0;
+      const lines = CART.map(it=>{
+        const opts = (it.options && Object.keys(it.options).length) ? ' (' + Object.entries(it.options).map(([k,v])=>`${k}: ${v}`).join(', ') + ')' : '';
+        const lineTotal = it.price * it.qty;
+        total += lineTotal;
+        return `${it.qty} x ${it.title}${opts} - $${lineTotal} MXN`;
+      }).join('\n');
+      const text = `Hola! Quisiera hacer un pedido.\nFolio: ${folio}\nPedido:\n${lines}\nTotal: $${total} MXN\nGracias.`;
+      const msg = encodeURIComponent(text);
       window.open('https://wa.me/6142425718?text='+msg,'_blank');
       $('#paymentModal').classList.add('hidden');
       CART=[]; saveCart();
     });
+
     $('#payTransfer').addEventListener('click',()=>{
       $('#paymentModal').classList.add('hidden');
       $('#transferModal').classList.remove('hidden');
     });
     $('#closeTransfer').addEventListener('click',()=>$('#transferModal').classList.add('hidden'));
+
     $('#sendProof').addEventListener('click',()=>{
-      const folio=Math.floor(Math.random()*9000+1000);
-      const msg=encodeURIComponent('Hola, mi pedido es: '+JSON.stringify(CART)+' Folio: '+folio+' - Adjunto comprobante');
+      const folio = Math.floor(Math.random()*9000+1000); // 4 dígitos
+      let total = 0;
+      const lines = CART.map(it=>{
+        const opts = (it.options && Object.keys(it.options).length) ? ' (' + Object.entries(it.options).map(([k,v])=>`${k}: ${v}`).join(', ') + ')' : '';
+        const lineTotal = it.price * it.qty;
+        total += lineTotal;
+        return `${it.qty} x ${it.title}${opts} - $${lineTotal} MXN`;
+      }).join('\n');
+      const text = `Hola! Te mando el comprobante de mi transferencia.\nFolio: ${folio}\nPedido:\n${lines}\nTotal: $${total} MXN\nAdjunto comprobante.\nGracias.`;
+      const msg = encodeURIComponent(text);
       window.open('https://wa.me/6142425718?text='+msg,'_blank');
       $('#transferModal').classList.add('hidden');
       CART=[]; saveCart();
@@ -369,4 +389,3 @@
   </script>
 </body>
 </html>
-
